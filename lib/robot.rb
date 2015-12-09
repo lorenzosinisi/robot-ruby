@@ -1,5 +1,6 @@
 require "robot/version"
+require "robot/play"
+require "robot/board"
 
 module Robot
-  # Your code goes here...
 end
