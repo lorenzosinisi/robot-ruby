@@ -35,6 +35,12 @@ module Robot
         board = Robot::Board.new
         expect(board.set_cell(2,2, "right")).to eq("right")
       end
+
+      it "should also set the new position of the robot" do
+        board = Robot::Board.new
+        board.set_cell(2,2, "right")
+        expect(board.position).to eq [2,2]
+      end
     end
 
   end

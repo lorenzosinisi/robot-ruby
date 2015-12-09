@@ -1,6 +1,6 @@
 module Robot
   class Board
-    attr_reader :grid, :position, :direction
+    attr_accessor :grid, :position, :direction
     
     def initialize
       @grid = Array.new(5) { Array.new(5) {  }  }
@@ -8,24 +8,17 @@ module Robot
       @direction = "south"
     end
 
-    def x
-      position[0]
-    end 
-
-    def y
-      position[1]
-    end
-
     def default_grid
       Array.new(5) { Array.new(5) {  }  }
     end
 
     def get_cell(x,y)
-      grid[y][x]
+      grid[x][y]
     end
 
     def set_cell(x,y, value)
-      grid[y][x] = value
+      self.position = [x,y]
+      grid[x][y] = value
     end
 
   end
