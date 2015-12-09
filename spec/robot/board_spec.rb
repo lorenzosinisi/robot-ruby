@@ -14,7 +14,7 @@ module Robot
 
       it "is expected to be itialized with the position 0x0 by default" do
         board = Robot::Board.new
-        expect(board.position).to eq "0,0"
+        expect(board.position).to eq [0,0]
       end
 
       it "is expected to be itialized with the position 0x0 by default" do
