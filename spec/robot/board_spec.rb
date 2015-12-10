@@ -82,5 +82,17 @@ module Robot
       end
     end
 
+    context "#is on the grid?" do
+      it "should be in the grid by default" do
+        is_inside = @board.in_grid?
+        expect(is_inside).to eq true
+      end
+
+      it "should not be possibile to be outside of the grid" do
+        is_inside = @board.in_grid?
+        expect(is_inside).to eq true
+      end
+    end
+
   end
 end
