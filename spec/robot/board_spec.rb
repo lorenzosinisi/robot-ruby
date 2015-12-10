@@ -84,6 +84,27 @@ module Robot
         @board.move_left
         expect(@board.direction).to eq("east")
       end
+      it "should rotate the robot 360 degrees in the specified direction without changing the position" do
+        4.times do 
+          @board.move_left
+        end
+        expect(@board.direction).to eq("south")
+      end
+
+      it "should rotate the robot 360 degrees 100 times" do
+        400.times do 
+          @board.move_left
+        end
+        expect(@board.direction).to eq("south")
+      end
+      
+      it "should rotate the robot 360 degrees 100 times and one to the right" do
+        400.times do 
+          @board.move_left
+        end
+        @board.move_right
+        expect(@board.direction).to eq("west")
+      end
     end
 
     context "#is on the grid?" do
