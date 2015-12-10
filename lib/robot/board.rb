@@ -1,11 +1,17 @@
 module Robot
   class Board
     attr_accessor :grid, :position, :direction
+    DIRECTIONS = [
+      "nord",
+      "east",
+      "south",
+      "west"
+    ]
     
     def initialize
       @grid = Array.new(5) { Array.new(5) {  }  }
       @position = [0,0]
-      @direction = "s"
+      @direction = DIRECTIONS[2]
     end
 
     def default_grid
@@ -29,6 +35,18 @@ module Robot
 
     def current_y
       self.position[0]
+    end
+
+    def move_right
+      current_direction = DIRECTIONS.index(@direction)
+      new_direction_idx = current_direction + 1
+      self.direction = DIRECTIONS[new_direction_idx]
+    end
+
+    def move_left
+      current_direction = DIRECTIONS.index(@direction)
+      new_direction_idx = current_direction - 1
+      self.direction = DIRECTIONS[new_direction_idx]
     end
 
     def clean_current_cell

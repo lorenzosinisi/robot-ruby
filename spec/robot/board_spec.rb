@@ -21,7 +21,7 @@ module Robot
       end
 
       it "is expected to be itialized with the position 0x0 by default" do
-        expect(@board.direction).to eq "s"
+        expect(@board.direction).to eq "south"
       end
     end
 
@@ -71,14 +71,14 @@ module Robot
     context "#move right" do
       it "should rotate the robot 90 degrees in the specified direction without changing the position" do
         @board.move_right
-        expect(@board.direction).to eq("w")
+        expect(@board.direction).to eq("west")
       end
     end
 
     context "#move left" do
       it "should rotate the robot 90 degrees in the specified direction without changing the position" do
         @board.move_left
-        expect(@board.direction).to eq("e")
+        expect(@board.direction).to eq("east")
       end
     end
 
