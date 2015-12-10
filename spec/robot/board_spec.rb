@@ -94,6 +94,7 @@ module Robot
 
       it "should not be possibile to be outside of the grid" do
         is_inside = @board.in_grid?
+        @board.set_cell(4343,43243, "right")
         expect(is_inside).to eq true
       end
     end
