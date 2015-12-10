@@ -5,7 +5,7 @@ module Robot
     def initialize
       @grid = Array.new(5) { Array.new(5) {  }  }
       @position = [0,0]
-      @direction = "south"
+      @direction = "s"
     end
 
     def default_grid
