@@ -33,7 +33,7 @@ module Robot
 
     context "#set cell" do
       it "sets the value of cell based on the (x, y) coordinates" do
-        expect(@board.set_cell(2,2, "right")).to eq("right")
+        expect(@board.set_cell(2,2, "right")).to eq true
       end
 
       it "should also set the new position of the robot" do

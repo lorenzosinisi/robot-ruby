@@ -31,8 +31,9 @@ module Robot
         clean_current_cell
         grid[x][y] = value
         self.position = [x,y]
+        return true
       end
-      value
+      false
     end
 
     def current_x
@@ -60,7 +61,7 @@ module Robot
     end
 
     def in_grid?(x = current_x, y = current_y)
-      [0,1,2,3,4].include?(current_x) and [0,1,2,3,4].include?(current_y)
+      [0,1,2,3,4].include?(x) and [0,1,2,3,4].include?(y)
     end
 
   end
