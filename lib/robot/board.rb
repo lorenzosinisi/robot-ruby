@@ -17,8 +17,22 @@ module Robot
     end
 
     def set_cell(x,y, value)
-      self.position = [x,y]
+      clean_current_cell
       grid[x][y] = value
+      self.position = [x,y]
+      value
+    end
+
+    def current_x
+      self.position[0]
+    end
+
+    def current_y
+      self.position[0]
+    end
+
+    def clean_current_cell
+      grid[current_x][current_y] = nil
     end
 
   end
