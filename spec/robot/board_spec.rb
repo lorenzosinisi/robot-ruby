@@ -40,6 +40,12 @@ module Robot
         @board.set_cell(2,2, "right")
         expect(@board.position).to eq [2,2]
       end
+
+      it "should clean up the position in the previus cell" do
+        @board.set_cell(2,2, "right")
+        @board.set_cell(2,3, "right")
+        expect(@board.get_cell(2,2)).to eq nil
+      end
     end
 
     context "#current x and current y" do
