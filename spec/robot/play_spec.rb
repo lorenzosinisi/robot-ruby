@@ -16,11 +16,26 @@ module Robot
     end
     
     context "#get_move" do
+      
       it "converts human_move of 'RIGHT'  to right" do
+        @play.get_move('RIGHT')
+        expect(@play.table.direction).to eq "west"
       end
-      it "converts human_move of 'LEFT'  to left"
-      it "converts human_move of 'REPORT' to report"
-      it "converts human_move of 'PLACE X,Y,F' to place(x,y,f)"
+
+      it "converts human_move of 'LEFT'  to left" do 
+        @play.get_move('LEFT')
+        expect(@play.table.direction).to eq "east"
+      end
+
+      it "converts human_move of 'REPORT' to report" do
+        @play.get_move('REPORT')
+        expect(@play.table.direction).to eq "south"
+      end
+
+      it "converts human_move of 'PLACE X,Y,F' to place(x,y,f)" do
+        @play.get_move('PLACE 2,3,NORTH')
+        expect(@play.table.get_cell(2,3)).to eq "NORTH"
+      end
     end
 
     context "#is a valid command?" do
@@ -33,7 +48,7 @@ module Robot
         valid = @play.is_valid_command?('LEFT')
         expect(valid).to be true
       end
-      
+
       it "should return true for 'REPORT'" do 
         valid = @play.is_valid_command?('REPORT')
         expect(valid).to be true
@@ -46,12 +61,10 @@ module Robot
         end
       end
 
-      it "should return true for kind of 'PLACE X,Y,F'" do
-        invalid = @play.validate_place_command("PLACE 1,1,SOUT")
+      it "should return false for an invalid command" do
+        invalid = @play.is_valid_command?("PLACE 1,1,SOUT")
         expect(invalid).to be false
       end
-
-      it "should return false for anything else"
     end
 
   end
