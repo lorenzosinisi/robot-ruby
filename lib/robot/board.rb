@@ -22,12 +22,12 @@ module Robot
     end
 
     def get_cell(x,y)
-      grid[x][y]
+      self.grid[x][y]
     end
 
     def set_cell(x,y, value)
       if in_grid?(x,y)
-        clean_current_cell
+        self.clean_current_cell
         self.grid[x][y] = value
         self.direction = value
         self.position = [x,y]
@@ -39,18 +39,18 @@ module Robot
     def move
       case direction
         when "SOUTH"
-          set_cell(current_x, current_y + 1, direction)
+          self.set_cell(self.current_x, self.current_y + 1, direction)
         when "NORTH"
-          set_cell(current_x, current_y - 1, direction)
+          self.set_cell(self.current_x, self.current_y - 1, direction)
         when "EAST"
-          set_cell(current_x - 1, current_y, direction)
+          self.set_cell(self.current_x - 1, self.current_y, direction)
         when "WEST"
-          set_cell(current_x + 1, current_y, direction)
+          self.set_cell(self.current_x + 1, self.current_y, direction)
       end
     end
 
     def report
-      "#{current_x}, #{current_y}, #{direction}"
+      "#{self.position[0]}, #{self.position[1]}, #{self.direction}"
     end
 
     def current_x
@@ -66,7 +66,7 @@ module Robot
         when "SOUTH"
           self.direction = "WEST"
         when "NORTH"
-          self.direction = "east"
+          self.direction = "EAST"
         when "EAST"
           self.direction = "SOUTH"
         when "WEST"
@@ -75,7 +75,7 @@ module Robot
     end
 
     def move_left
-      case direction
+      case self.direction
         when "SOUTH"
           self.direction = "EAST"
         when "NORTH"
@@ -88,11 +88,11 @@ module Robot
     end
 
     def clean_current_cell
-      grid[current_x][current_y] = nil
+      self.grid[current_x][current_y] = nil
     end
 
     def in_grid?(x = current_x, y = current_y)
-      [0,1,2,3,4].include?(x.to_i) and [0,1,2,3,4].include?(y.to_i)
+      [0,1,2,3,4].include?(x) and [0,1,2,3,4].include?(y)
     end
 
   end

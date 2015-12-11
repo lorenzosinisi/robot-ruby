@@ -14,14 +14,15 @@ module Robot
       while true
         if get_move(cmd = gets.chomp)
           puts "\n\n"
-          puts "new state of the robot: " + @table.report
+          puts "=> actual state of the robot: " + @table.report
           puts "\n\n"
-          puts "Type a new command:"
+          puts @table.grid
+          puts "=> Type a new command:"
         else
           puts "\n\n\n\n\n\n"
-          puts "Invalid command"
+          puts "=> Invalid command"
           puts valid_commands
-          puts "Type a new command:"
+          puts "=> Type a new command:"
         end
       end
     end
