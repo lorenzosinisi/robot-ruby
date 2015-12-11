@@ -21,14 +21,14 @@ module Robot
     def validate_place_command(command)
       # all this code could be done with a regex but in that way
       # we can manage way more exceptions and see where the user fails (in the future)
-      reurn false if !command.include?("PLACE")
+      return false if !command.include?("PLACE")
       coords = command.gsub!("PLACE", "").strip.split(",")
       return false if coords.size > 3
       return false unless to_number(coords[0]) or to_number(coords[1])
       return is_valid_direction?(coords[2])
       false
     end
-    
+
     def is_valid_direction?(direction)
       VALID_DIRECTIONS.each {|d| return true if d == direction}
       false

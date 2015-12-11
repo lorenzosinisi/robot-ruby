@@ -29,8 +29,15 @@ module Robot
         expect(valid).to be true
       end
 
-      it "should return true for 'LEFT'"
-      it "should return true for 'REPORT'"
+      it "should return true for 'LEFT'" do 
+        valid = @play.is_valid_command?('LEFT')
+        expect(valid).to be true
+      end
+      
+      it "should return true for 'REPORT'" do 
+        valid = @play.is_valid_command?('REPORT')
+        expect(valid).to be true
+      end
       
       it "should return true for kind of 'PLACE X,Y,F'" do
         ["NORTH", "WEST", "EAST", "SOUTH"].each do |dir|
