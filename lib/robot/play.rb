@@ -9,11 +9,33 @@ module Robot
       @table = options[:table] || Robot::Board.new
     end
 
+
+    def start
+      while true
+        if get_move(cmd = gets.chomp)
+          puts "\n\n"
+          puts "new state of the robot: " + @table.report
+          puts "\n\n"
+          puts "Type a new command:"
+        else
+          puts "\n\n\n\n\n\n"
+          puts "Invalid command"
+          puts valid_commands
+          puts "Type a new command:"
+        end
+      end
+    end
+
+    def valid_commands
+      puts "Valid commands: RIGHT, LEFT, MOVE, REPORT, PLACE X, Y, F"
+    end
     def get_move(human_move = gets.chomp)
       if is_valid_command?(human_move)
         human_command_to_robot(human_move)
+        true
       else
         try_again_no_valid_command
+        return false
       end
     end
 
@@ -25,20 +47,21 @@ module Robot
           when "LEFT"
             @table.move_left
           when "MOVE"
-            # not implemented yet
+            @table.move
           when "REPORT"
-            # not implemented yet
+            @table.report
         end
       else
-        send_place_command
+        send_place_command(cmd)
       end
     end
 
     def try_again_no_valid_command
       "Sorry, try again"
     end
-    
-    def send_place_command
+
+    def send_place_command(cmd)
+      validate_place_command(cmd)
       @table.set_cell(@coords[0].to_i, @coords[1].to_i, @direction)
     end
 
@@ -46,7 +69,7 @@ module Robot
       VALID_COMMANDS.each {|c| self.command_type = :simple_command and return true if c == command}
       return validate_place_command(command)
     end
-    
+
     def validate_place_command(command)
       # all this code could be done with a regex but in that way
       # we can manage way more exceptions and see where the user fails (in the future)

@@ -4,10 +4,10 @@ module Robot
     # the grid is represented by an array of dimentions 5x5
     attr_accessor :grid, :position, :direction
     DIRECTIONS = [
-      "nord",
-      "east",
-      "south",
-      "west"
+      "NORTH",
+      "EAST",
+      "SOUTH",
+      "WEST"
     ]
     def initialize
       # create the grid 5x5
@@ -38,13 +38,13 @@ module Robot
 
     def move
       case direction
-        when "south"
+        when "SOUTH"
           set_cell(current_x, current_y + 1, direction)
-        when "north"
+        when "NORTH"
           set_cell(current_x, current_y - 1, direction)
-        when "east"
+        when "EAST"
           set_cell(current_x - 1, current_y, direction)
-        when "west"
+        when "WEST"
           set_cell(current_x + 1, current_y, direction)
       end
     end
@@ -62,15 +62,29 @@ module Robot
     end
 
     def move_right
-      current_direction = DIRECTIONS.index(@direction)
-      new_direction_idx = current_direction + 1
-      self.direction = DIRECTIONS[new_direction_idx]
+      case self.direction
+        when "SOUTH"
+          self.direction = "WEST"
+        when "NORTH"
+          self.direction = "east"
+        when "EAST"
+          self.direction = "SOUTH"
+        when "WEST"
+          self.direction = "NORTH"
+      end
     end
 
     def move_left
-      current_direction = DIRECTIONS.index(@direction)
-      new_direction_idx = current_direction - 1
-      self.direction = DIRECTIONS[new_direction_idx]
+      case direction
+        when "SOUTH"
+          self.direction = "EAST"
+        when "NORTH"
+          self.direction = "WEST"
+        when "EAST"
+          self.direction = "NORTH"
+        when "WEST"
+          self.direction = "SOUTH"
+      end
     end
 
     def clean_current_cell

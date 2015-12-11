@@ -21,7 +21,7 @@ module Robot
       end
 
       it "is expected to be itialized with the position 0x0 by default" do
-        expect(@board.direction).to eq "south"
+        expect(@board.direction).to eq "SOUTH"
       end
     end
 
@@ -75,27 +75,27 @@ module Robot
     context "#move right" do
       it "should rotate the robot 90 degrees in the specified direction without changing the position" do
         @board.move_right
-        expect(@board.direction).to eq("west")
+        expect(@board.direction).to eq("WEST")
       end
     end
 
     context "#move left" do
       it "should rotate the robot 90 degrees in the specified direction without changing the position" do
         @board.move_left
-        expect(@board.direction).to eq("east")
+        expect(@board.direction).to eq("EAST")
       end
       it "should rotate the robot 360 degrees in the specified direction without changing the position" do
         4.times do
           @board.move_left
         end
-        expect(@board.direction).to eq("south")
+        expect(@board.direction).to eq("SOUTH")
       end
 
       it "should rotate the robot 360 degrees 100 times" do
         400.times do
           @board.move_left
         end
-        expect(@board.direction).to eq("south")
+        expect(@board.direction).to eq("SOUTH")
       end
 
       it "should rotate the robot 360 degrees 100 times and one to the right" do
@@ -103,38 +103,38 @@ module Robot
           @board.move_left
         end
         @board.move_right
-        expect(@board.direction).to eq("west")
+        expect(@board.direction).to eq("WEST")
       end
     end
 
     context "#move" do
       it "should move the robot one position further in the direction it is now" do
-        @board.set_cell(2,2, "south")
+        @board.set_cell(2,2, "SOUTH")
         expect(@board.move).to eq true
         expect(@board.position).to eq([2,3])
 
-        @board.set_cell(2,2, "north")
+        @board.set_cell(2,2, "NORTH")
         expect(@board.move).to eq true
         expect(@board.position).to eq([2,1])
 
-        @board.set_cell(2,2, "west")
+        @board.set_cell(2,2, "WEST")
         expect(@board.move).to eq true
         expect(@board.position).to eq([3,2])
 
-        @board.set_cell(2,2, "east")
+        @board.set_cell(2,2, "EAST")
         expect(@board.move).to eq true
         expect(@board.position).to eq([1,2])
       end
 
       it "should not move the robot if the movement make it fall from the table" do
-        @board.set_cell(0,0, "north")
+        @board.set_cell(0,0, "NORTH")
         expect(@board.move).to eq false
       end
     end
 
     context "#report" do
       it "should print the position of the robot" do
-        expect(@board.report).to eq "0, 0, south"
+        expect(@board.report).to eq "0, 0, SOUTH"
       end
     end
 
