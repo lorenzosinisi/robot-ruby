@@ -10,14 +10,13 @@ module Robot
     VALID_DIRECTIONS = ["NORTH", "SOUTH", "EAST", "WEST"]
 
     def initialize(options={})
-      @table = options[:table] || Robot::Board.new
+      @robot = options[:table] || Robot::Board.new
     end
 
-
     def start
+      puts valid_commands
       while true
-        if get_move(cmd = gets.chomp)
-          puts cmd
+        if get_move(gets.chomp)
           puts "\n\n\n\n\n\n"
           puts "=> Type a new command:"
           puts "\n\n"
@@ -47,14 +46,14 @@ module Robot
     def human_command_to_robot(cmd)
       case cmd
         when "RIGHT"
-          @table.move_right
+          @robot.move_right
         when "LEFT"
-          @table.move_left
+          @robot.move_left
         when "MOVE"
-          @table.move
+          @robot.move
         when "REPORT"
           puts "\n\n\n\n\n\n"
-          puts @table.report
+          puts @robot.report
         else
           send_place_command("PLACE " + cmd)
       end
@@ -66,7 +65,7 @@ module Robot
 
     def send_place_command(cmd)
       if validate_place_command(cmd)
-        @table.set_cell(@coords[0].to_i, @coords[1].to_i, @direction)
+        @robot.set_cell(@coords[0].to_i, @coords[1].to_i, @direction)
       end
     end
 
