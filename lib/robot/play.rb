@@ -16,7 +16,7 @@ module Robot
           puts "\n\n"
           puts "=> actual state of the robot: " + @table.report
           puts "\n\n"
-          puts @table.grid
+          puts @table.inspect
           puts "=> Type a new command:"
         else
           puts "\n\n\n\n\n\n"

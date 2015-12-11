@@ -14,11 +14,11 @@ module Robot
       @grid = default_grid
       @position = [0,0]
       # position the direction to south
-      @direction = DIRECTIONS[2]
+      @direction = DIRECTIONS[0]
     end
 
     def default_grid
-      Array.new(5) { Array.new(5) {  }  }
+      Array.new(5) { Array.new(5) {} }
     end
 
     def get_cell(x,y)
@@ -37,15 +37,23 @@ module Robot
     end
 
     def move
+      # TABLE:
+      #  y
+      #  - - - - -
+      #  - - - - -
+      #  - - - - -
+      #  - - - - -
+      #  0,0 - - - X
+      # # # # # # # #
       case direction
         when "SOUTH"
-          self.set_cell(self.current_x, self.current_y + 1, direction)
+          self.set_cell(position[0], position[1] - 1, direction)
         when "NORTH"
-          self.set_cell(self.current_x, self.current_y - 1, direction)
+          self.set_cell(position[0], position[1] + 1, direction)
         when "EAST"
-          self.set_cell(self.current_x - 1, self.current_y, direction)
+          self.set_cell(position[0] + 1, position[1], direction)
         when "WEST"
-          self.set_cell(self.current_x + 1, self.current_y, direction)
+          self.set_cell(position[0] - 1, position[1], direction)
       end
     end
 

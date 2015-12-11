@@ -19,17 +19,17 @@ module Robot
 
       it "converts human_move of 'RIGHT'  to right" do
         @play.get_move('RIGHT')
-        expect(@play.table.direction).to eq "WEST"
+        expect(@play.table.direction).to eq "EAST"
       end
 
       it "converts human_move of 'LEFT'  to left" do
         @play.get_move('LEFT')
-        expect(@play.table.direction).to eq "EAST"
+        expect(@play.table.direction).to eq "WEST"
       end
 
       it "converts human_move of 'REPORT' to report" do
         @play.get_move('REPORT')
-        expect(@play.table.direction).to eq "SOUTH"
+        expect(@play.table.direction).to eq "NORTH"
       end
 
       it "converts human_move of 'PLACE X,Y,F' to place(x,y,f)" do
