@@ -96,7 +96,7 @@ module Robot
     end
 
     def clean_current_cell
-      self.grid[current_x][current_y] = nil
+      grid[self.current_x][self.current_y] = nil
     end
 
     def in_grid?(x = current_x, y = current_y)

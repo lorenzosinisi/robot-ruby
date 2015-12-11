@@ -67,5 +67,20 @@ module Robot
       end
     end
 
+    context "#send place command" do
+      it "should send the command to the board" do
+        @play.send_place_command("PLACE 1,1,SOUTH")
+        expect(@play.table.report).to eq "1, 1, SOUTH"
+      end
+
+      it "should be able to call send place command more than once" do
+        @play.send_place_command("PLACE 1,1,SOUTH")
+        @play.send_place_command("PLACE 1,1,NORTH")
+        @play.send_place_command("PLACE 1,3,WEST")
+        @play.send_place_command("PLACE 4,3,EAST")
+        expect(@play.table.report).to eq "4, 3, EAST"
+      end
+    end
+
   end
 end

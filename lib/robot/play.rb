@@ -1,9 +1,13 @@
 module Robot
   class Play
-    attr_accessor :table, :command_type
+    # the plan where the Robot can move
+    attr_accessor :table
+
+    # valid simple commands ready to be executed
     VALID_COMMANDS   = ["RIGHT", "LEFT", "MOVE", "REPORT"]
+
+    # valid directions that the robot can get
     VALID_DIRECTIONS = ["NORTH", "SOUTH", "EAST", "WEST"]
-    VALID_COORDS     = ["1", "2", "3", "4", "5"]
 
     def initialize(options={})
       @table = options[:table] || Robot::Board.new
@@ -13,11 +17,10 @@ module Robot
     def start
       while true
         if get_move(cmd = gets.chomp)
-          puts "\n\n"
-          puts "=> actual state of the robot: " + @table.report
-          puts "\n\n"
-          puts @table.inspect
+          puts cmd
+          puts "\n\n\n\n\n\n"
           puts "=> Type a new command:"
+          puts "\n\n"
         else
           puts "\n\n\n\n\n\n"
           puts "=> Invalid command"
@@ -30,7 +33,8 @@ module Robot
     def valid_commands
       puts "Valid commands: RIGHT, LEFT, MOVE, REPORT, PLACE X, Y, F"
     end
-    def get_move(human_move = gets.chomp)
+
+    def get_move(human_move)
       if is_valid_command?(human_move)
         human_command_to_robot(human_move)
         true
@@ -41,19 +45,18 @@ module Robot
     end
 
     def human_command_to_robot(cmd)
-      if command_type == :simple_command
-        case cmd
-          when "RIGHT"
-            @table.move_right
-          when "LEFT"
-            @table.move_left
-          when "MOVE"
-            @table.move
-          when "REPORT"
-            @table.report
-        end
-      else
-        send_place_command(cmd)
+      case cmd
+        when "RIGHT"
+          @table.move_right
+        when "LEFT"
+          @table.move_left
+        when "MOVE"
+          @table.move
+        when "REPORT"
+          puts "\n\n\n\n\n\n"
+          puts @table.report
+        else
+          send_place_command("PLACE " + cmd)
       end
     end
 
@@ -62,13 +65,14 @@ module Robot
     end
 
     def send_place_command(cmd)
-      validate_place_command(cmd)
-      @table.set_cell(@coords[0].to_i, @coords[1].to_i, @direction)
+      if validate_place_command(cmd)
+        @table.set_cell(@coords[0].to_i, @coords[1].to_i, @direction)
+      end
     end
 
     def is_valid_command?(command)
-      VALID_COMMANDS.each {|c| self.command_type = :simple_command and return true if c == command}
-      return validate_place_command(command)
+      VALID_COMMANDS.each {|c| return true if c == command}
+      validate_place_command(command)
     end
 
     def validate_place_command(command)
