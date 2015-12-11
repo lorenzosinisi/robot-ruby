@@ -108,8 +108,28 @@ module Robot
     end
 
     context "#move" do
-      it "should move the robot one position further in the direction it is now"
-      it "should not move the robot if the movement cause make it fall"
+      it "should move the robot one position further in the direction it is now" do
+        @board.set_cell(2,2, "south")
+        expect(@board.move).to eq true
+        expect(@board.position).to eq([2,3])
+
+        @board.set_cell(2,2, "north")
+        expect(@board.move).to eq true
+        expect(@board.position).to eq([2,1])
+
+        @board.set_cell(2,2, "west")
+        expect(@board.move).to eq true
+        expect(@board.position).to eq([3,2])
+
+        @board.set_cell(2,2, "east")
+        expect(@board.move).to eq true
+        expect(@board.position).to eq([1,2])
+      end
+
+      it "should not move the robot if the movement make it fall from the table" do
+        @board.set_cell(0,0, "north")
+        expect(@board.move).to eq false
+      end
     end
 
     context "#report" do

@@ -2,14 +2,13 @@ module Robot
   class Board
     # this class is responsible of handling the movement of the robot on the plan
     # the grid is represented by an array of dimentions 5x5
-    attr_accessor :grid, :position, :direction, :current_x, :current_y
+    attr_accessor :grid, :position, :direction
     DIRECTIONS = [
       "nord",
       "east",
       "south",
       "west"
     ]
-
     def initialize
       # create the grid 5x5
       @grid = default_grid
@@ -29,7 +28,8 @@ module Robot
     def set_cell(x,y, value)
       if in_grid?(x,y)
         clean_current_cell
-        grid[x][y] = value
+        self.grid[x][y] = value
+        self.direction = value
         self.position = [x,y]
         return true
       end
@@ -37,6 +37,16 @@ module Robot
     end
 
     def move
+      case direction
+        when "south"
+          set_cell(current_x, current_y + 1, direction)
+        when "north"
+          set_cell(current_x, current_y - 1, direction)
+        when "east"
+          set_cell(current_x - 1, current_y, direction)
+        when "west"
+          set_cell(current_x + 1, current_y, direction)
+      end
     end
 
     def report
@@ -68,7 +78,7 @@ module Robot
     end
 
     def in_grid?(x = current_x, y = current_y)
-      [0,1,2,3,4].include?(x) and [0,1,2,3,4].include?(y)
+      [0,1,2,3,4].include?(x.to_i) and [0,1,2,3,4].include?(y.to_i)
     end
 
   end
