@@ -28,13 +28,12 @@ module Robot
       end
 
       it "converts human_move of 'REPORT' to report" do
-        @play.get_move('REPORT')
-        expect(@play.robot.direction).to eq "NORTH"
+        expect(@play.get_move('REPORT')).to be true
       end
 
       it "converts human_move of 'PLACE X,Y,F' to place(x,y,f)" do
         @play.get_move('PLACE 2,3,NORTH')
-        expect(@play.robot.get_cell(2,3)).to eq "NORTH"
+        expect(@play.robot.direction).to eq "NORTH"
       end
     end
 

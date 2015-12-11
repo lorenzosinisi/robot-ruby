@@ -54,7 +54,7 @@ module Robot
           puts "\n\n\n\n\n\n"
           puts @robot.report
         else
-          send_place_command("PLACE " + cmd)
+          send_place_command(cmd)
       end
     end
 
@@ -67,7 +67,7 @@ module Robot
         @robot.set_cell(@coords[0].to_i, @coords[1].to_i, @direction)
       end
     end
-
+    
     def is_valid_command?(command)
       VALID_COMMANDS.each {|c| return true if c == command}
       validate_place_command(command)
@@ -76,12 +76,16 @@ module Robot
     def validate_place_command(command)
       # all this code could be done with a regex but in that way
       # we can manage way more exceptions and see where the user fails (in the future)
-      return false if !command.include?("PLACE")
-      @coords = command.gsub!("PLACE", "").strip.split(",")
+      return false if not command.include?("PLACE")
+      @coords = command.gsub("PLACE", "").strip.split(",")
       return false if not @coords.size == 3
       return false unless to_number(@coords[0]) or to_number(@coords[1])
-      return is_valid_direction?(@coords[2])
-      false
+
+      if is_valid_direction?(@coords[2])
+        true
+      else
+        false
+      end
     end
 
     # assign the direction to the variable in case the direction is valid
