@@ -108,14 +108,13 @@ module Robot
     end
 
     context "#move" do
-      it "should move the robot one position further in the direction it is now" do
-      end
+      it "should move the robot one position further in the direction it is now"
       it "should not move the robot if the movement cause make it fall"
     end
 
     context "#report" do
       it "should print the position of the robot" do
-        expect(@board.report).to eq"0, 0, south"
+        expect(@board.report).to eq "0, 0, south"
       end
     end
 

@@ -2,7 +2,7 @@ module Robot
   class Board
     # this class is responsible of handling the movement of the robot on the plan
     # the grid is represented by an array of dimentions 5x5
-    attr_accessor :grid, :position, :direction
+    attr_accessor :grid, :position, :direction, :current_x, :current_y
     DIRECTIONS = [
       "nord",
       "east",
@@ -34,6 +34,9 @@ module Robot
         return true
       end
       false
+    end
+
+    def move
     end
 
     def report
