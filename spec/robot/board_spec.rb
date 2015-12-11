@@ -2,15 +2,15 @@ require 'spec_helper'
 
 module Robot
   describe Board do
-    
-    before(:each) do 
+
+    before(:each) do
       @board  = Robot::Board.new
     end
 
-    it "should be a Robot module" do 
+    it "should be a Robot module" do
       expect(Board).to be Robot::Board
     end
-    
+
     context "#initialize" do
       it "is expected to be itialized with a 2d array of 5x5 by default" do
         expect(@board.grid).to eq Array.new(5) { Array.new(5) {  }  }
@@ -85,21 +85,21 @@ module Robot
         expect(@board.direction).to eq("east")
       end
       it "should rotate the robot 360 degrees in the specified direction without changing the position" do
-        4.times do 
+        4.times do
           @board.move_left
         end
         expect(@board.direction).to eq("south")
       end
 
       it "should rotate the robot 360 degrees 100 times" do
-        400.times do 
+        400.times do
           @board.move_left
         end
         expect(@board.direction).to eq("south")
       end
-      
+
       it "should rotate the robot 360 degrees 100 times and one to the right" do
-        400.times do 
+        400.times do
           @board.move_left
         end
         @board.move_right
@@ -108,12 +108,15 @@ module Robot
     end
 
     context "#move" do
-      it "should move the robot one position further in the direction it is now"
+      it "should move the robot one position further in the direction it is now" do
+      end
       it "should not move the robot if the movement cause make it fall"
     end
 
     context "#report" do
-      it "should print the position of the robot"
+      it "should print the position of the robot" do
+        expect(@board.report).to eq"0, 0, south"
+      end
     end
 
     context "#is on the grid?" do
@@ -126,6 +129,7 @@ module Robot
         @board.set_cell(4343,43243, "right")
         is_inside = @board.in_grid?
         expect(is_inside).to eq true
+        # so not moved outside of the grid and ignored the command set_cell
       end
     end
 

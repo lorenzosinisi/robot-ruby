@@ -9,13 +9,13 @@ module Robot
       "south",
       "west"
     ]
-    
+
     def initialize
       # create the grid 5x5
       @grid = default_grid
       @position = [0,0]
       # position the direction to south
-      @direction = DIRECTIONS[2] 
+      @direction = DIRECTIONS[2]
     end
 
     def default_grid
@@ -34,6 +34,10 @@ module Robot
         return true
       end
       false
+    end
+
+    def report
+      "#{current_x}, #{current_y}, #{direction}"
     end
 
     def current_x
