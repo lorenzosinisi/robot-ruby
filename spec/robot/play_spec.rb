@@ -31,7 +31,19 @@ module Robot
 
       it "should return true for 'LEFT'"
       it "should return true for 'REPORT'"
-      it "should return true for kind of 'PLACE X,Y,F'"
+      
+      it "should return true for kind of 'PLACE X,Y,F'" do
+        ["NORTH", "WEST", "EAST", "SOUTH"].each do |dir|
+          valid = @play.validate_place_command("PLACE 1,1," + dir)
+          expect(valid).to be true
+        end
+      end
+
+      it "should return true for kind of 'PLACE X,Y,F'" do
+        invalid = @play.validate_place_command("PLACE 1,1,SOUT")
+        expect(invalid).to be false
+      end
+
       it "should return false for anything else"
     end
 
