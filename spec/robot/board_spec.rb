@@ -107,6 +107,15 @@ module Robot
       end
     end
 
+    context "#move" do
+      it "should move the robot one position further in the direction it is now"
+      it "should not move the robot if the movement cause make it fall"
+    end
+
+    context "#report" do
+      it "should print the position of the robot"
+    end
+
     context "#is on the grid?" do
       it "should be in the grid by default" do
         is_inside = @board.in_grid?

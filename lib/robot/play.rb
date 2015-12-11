@@ -17,15 +17,6 @@ module Robot
       end
     end
 
-    def try_again_no_valid_command
-      puts "Sorry, try again"
-    end
-
-    def is_valid_command?(command)
-      VALID_COMMANDS.each {|c| self.command_type = :simple_command and return true if c == command}
-      return validate_place_command(command)
-    end
-
     def human_command_to_robot(cmd)
       if command_type == :simple_command
         case cmd
@@ -43,8 +34,17 @@ module Robot
       end
     end
 
+    def try_again_no_valid_command
+      "Sorry, try again"
+    end
+    
     def send_place_command
       @table.set_cell(@coords[0].to_i, @coords[1].to_i, @direction)
+    end
+
+    def is_valid_command?(command)
+      VALID_COMMANDS.each {|c| self.command_type = :simple_command and return true if c == command}
+      return validate_place_command(command)
     end
     
     def validate_place_command(command)
@@ -58,11 +58,13 @@ module Robot
       false
     end
 
+    # assign the direction to the variable in case the direction is valid
     def is_valid_direction?(direction)
       VALID_DIRECTIONS.each {|d| @direction = direction and return true if d == direction}
       false
     end
 
+    # check that the string is a number
     def to_number(str)
       str.to_i if str[/^-?\d+$/] and str.size == 1
     end
