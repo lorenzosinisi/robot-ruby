@@ -1,7 +1,6 @@
 module Robot
   class Play
-    # the plan where the Robot can move
-    attr_accessor :table
+    attr_accessor :robot
 
     # valid simple commands ready to be executed
     VALID_COMMANDS   = ["RIGHT", "LEFT", "MOVE", "REPORT"]
@@ -10,7 +9,7 @@ module Robot
     VALID_DIRECTIONS = ["NORTH", "SOUTH", "EAST", "WEST"]
 
     def initialize(options={})
-      @robot = options[:table] || Robot::Board.new
+      @robot = options[:robot] || Robot::Board.new
     end
 
     def start

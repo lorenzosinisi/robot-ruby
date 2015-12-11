@@ -4,7 +4,7 @@ module Robot
   describe Play do
     before(:each) do
       @board = Robot::Board.new
-      @play = Play.new({table: @board})
+      @play = Play.new({robot: @board})
     end
 
     it "should be a Robot module" do
@@ -12,29 +12,29 @@ module Robot
     end
 
     it "should start the robot and initiate the table" do
-      expect(@play.table).to be @board
+      expect(@play.robot).to be @board
     end
 
     context "#get_move" do
 
       it "converts human_move of 'RIGHT'  to right" do
         @play.get_move('RIGHT')
-        expect(@play.table.direction).to eq "EAST"
+        expect(@play.robot.direction).to eq "EAST"
       end
 
       it "converts human_move of 'LEFT'  to left" do
         @play.get_move('LEFT')
-        expect(@play.table.direction).to eq "WEST"
+        expect(@play.robot.direction).to eq "WEST"
       end
 
       it "converts human_move of 'REPORT' to report" do
         @play.get_move('REPORT')
-        expect(@play.table.direction).to eq "NORTH"
+        expect(@play.robot.direction).to eq "NORTH"
       end
 
       it "converts human_move of 'PLACE X,Y,F' to place(x,y,f)" do
         @play.get_move('PLACE 2,3,NORTH')
-        expect(@play.table.get_cell(2,3)).to eq "NORTH"
+        expect(@play.robot.get_cell(2,3)).to eq "NORTH"
       end
     end
 
@@ -70,7 +70,7 @@ module Robot
     context "#send place command" do
       it "should send the command to the board" do
         @play.send_place_command("PLACE 1,1,SOUTH")
-        expect(@play.table.report).to eq "1, 1, SOUTH"
+        expect(@play.robot.report).to eq "1, 1, SOUTH"
       end
 
       it "should be able to call send place command more than once" do
@@ -78,7 +78,7 @@ module Robot
         @play.send_place_command("PLACE 1,1,NORTH")
         @play.send_place_command("PLACE 1,3,WEST")
         @play.send_place_command("PLACE 4,3,EAST")
-        expect(@play.table.report).to eq "4, 3, EAST"
+        expect(@play.robot.report).to eq "4, 3, EAST"
       end
     end
 
