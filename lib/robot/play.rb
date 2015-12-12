@@ -1,12 +1,8 @@
 module Robot
   class Play
     attr_accessor :robot
-
-    # valid simple commands ready to be executed
-    VALID_COMMANDS   = ["RIGHT", "LEFT", "MOVE", "REPORT"]
-
-    # valid directions that the robot can get
-    VALID_DIRECTIONS = ["NORTH", "SOUTH", "EAST", "WEST"]
+    VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT)
+    VALID_DIRECTIONS = %w(NORTH SOUTH EAST WEST)
 
     def initialize(options={})
       @robot = options[:robot] || Robot::Board.new
@@ -38,20 +34,19 @@ module Robot
         true
       else
         try_again_no_valid_command
-        return false
+        false
       end
     end
 
     def human_command_to_robot(cmd)
-      case cmd
-        when "RIGHT"
+      case cmd.downcase.to_sym
+        when :right
           @robot.move_right
-        when "LEFT"
+        when :left
           @robot.move_left
-        when "MOVE"
+        when :move
           @robot.move
-        when "REPORT"
-          puts "\n\n\n\n\n\n"
+        when :report
           puts @robot.report
         else
           send_place_command(cmd)
@@ -64,23 +59,24 @@ module Robot
 
     def send_place_command(cmd)
       if validate_place_command(cmd)
-        @robot.set_cell(@coords[0].to_i, @coords[1].to_i, @direction)
+        x, y, f = @coords[0].to_i, @coords[1].to_i, @direction
+        @robot.set_cell(x, y, f)
       end
     end
-    
-    def is_valid_command?(command)
-      VALID_COMMANDS.each {|c| return true if c == command}
-      validate_place_command(command)
+
+    def is_valid_command?(cmd)
+      # does perform a loop unfortunately, but it would be the same with Array#Index
+      return true if VALID_COMMANDS.include?(cmd)
+      validate_place_command(cmd)
     end
 
-    def validate_place_command(command)
+    def validate_place_command(cmd)
       # all this code could be done with a regex but in that way
       # we can manage way more exceptions and see where the user fails (in the future)
-      return false if not command.include?("PLACE")
-      @coords = command.gsub("PLACE", "").strip.split(",")
+      return false if not cmd.match(/^PLACE/)
+      @coords = cmd.gsub("PLACE", "").strip.split(",")
       return false if not @coords.size == 3
       return false unless to_number(@coords[0]) or to_number(@coords[1])
-
       if is_valid_direction?(@coords[2])
         true
       else
@@ -90,7 +86,7 @@ module Robot
 
     # assign the direction to the variable in case the direction is valid
     def is_valid_direction?(direction)
-      VALID_DIRECTIONS.each {|d| @direction = direction and return true if d == direction}
+      @direction = direction and return true if VALID_DIRECTIONS.include?(direction)
       false
     end
 
