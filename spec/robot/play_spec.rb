@@ -74,11 +74,6 @@ module Robot
         expect(@play.command_y).to eq 3
         expect(@play.command_f).to eq "NORTH"
       end
-
-      it "should raise an error ArgumentError if one of the coords is not a number" do
-        expect{@play.extract_arguments('ciao,hello,NORTH')}.to raise_error(ArgumentError)
-        expect{@play.extract_arguments(',,NORTH')}.to raise_error(ArgumentError)
-      end
     end
 
     context "#is a valid command? with valid commands" do
