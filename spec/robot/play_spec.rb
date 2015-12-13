@@ -99,5 +99,29 @@ module Robot
         end
       end
     end
+
+    context "Do the demo set of commands from Specs" do
+      it "example a)" do
+        @play.get_move('PLACE 0,0,NORTH')
+        @play.get_move('MOVE')
+        expect(@play.robot.report).to eq "0, 1, NORTH"
+        #Output: 0,1,NORTH
+      end
+      it "example b)" do
+        @play.get_move('PLACE 0,0,NORTH')
+        @play.get_move('LEFT')
+        expect(@play.robot.report).to eq "0, 0, WEST"
+        #Output: 0,0,WEST
+      end
+      it "example c)" do
+        @play.get_move('PLACE 1,2,EAST')
+        @play.get_move('MOVE')
+        @play.get_move('MOVE')
+        @play.get_move('LEFT')
+        @play.get_move('MOVE')
+        expect(@play.robot.report).to eq "3, 3, NORTH"
+        #Output: 3,3,NORTH
+      end
+    end
   end
 end
