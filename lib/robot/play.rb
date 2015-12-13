@@ -77,12 +77,18 @@ module Robot
         self.command_x = Integer(arguments[0])
         self.command_y = Integer(arguments[1])
         self.command_f = arguments[2]
+      else
+        puts "Not a valid direction: #{arguments[2]}. Valid directions #{VALID_DIRECTIONS}"
       end
     end
 
     def is_valid_command?(type)
       type = type.split(" ")[0]
-      VALID_COMMANDS.include?(type)
+      if VALID_COMMANDS.include?(type)
+        true
+      else
+         puts "Not a valid command #{type}. #{valid_commands}"
+      end
     end
 
   end
