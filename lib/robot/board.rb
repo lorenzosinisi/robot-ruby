@@ -16,10 +16,6 @@ module Robot
       @direction = DIRECTIONS[0]
     end
 
-    def default_grid
-      Array.new(5) { Array.new(5) {} }
-    end
-    # use constrain > 0 < 4
     def set_cell(x,y, value)
       if in_grid?(x,y)
         self.direction = value
@@ -31,14 +27,14 @@ module Robot
     end
 
     def move
-      case direction
-        when "SOUTH"
+      case self.direction.downcase.to_sym
+        when :south
           self.set_cell(current_x, current_y - 1, direction)
-        when "NORTH"
+        when :north
           self.set_cell(current_x, current_y + 1, direction)
-        when "EAST"
+        when :east
           self.set_cell(current_x + 1, current_y, direction)
-        when "WEST"
+        when :west
           self.set_cell(current_x - 1, current_y, direction)
       end
     end
@@ -48,27 +44,27 @@ module Robot
     end
 
     def move_right
-      case self.direction
-        when "SOUTH"
+      case self.direction.downcase.to_sym
+        when :south
           self.direction = "WEST"
-        when "NORTH"
+        when :north
           self.direction = "EAST"
-        when "EAST"
+        when :east
           self.direction = "SOUTH"
-        when "WEST"
+        when :west
           self.direction = "NORTH"
       end
     end
 
     def move_left
-      case self.direction
-        when "SOUTH"
+      case self.direction.downcase.to_sym
+        when :south
           self.direction = "EAST"
-        when "NORTH"
+        when :north
           self.direction = "WEST"
-        when "EAST"
+        when :east
           self.direction = "NORTH"
-        when "WEST"
+        when :west
           self.direction = "SOUTH"
       end
     end
