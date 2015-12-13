@@ -35,9 +35,49 @@ module Robot
         @play.get_move('PLACE 2,3,NORTH')
         expect(@play.robot.direction).to eq "NORTH"
       end
+
+      it "converts human_move of 'PLACE X,Y,F' to place(x,y,f)" do
+        @play.get_move('PLACE 2,3,NORTH')
+        expect(@play.robot.direction).to eq "NORTH"
+      end
+    end
+
+    context "#parse command" do
+      it "should set the command type if valid" do
+        @play.parse_command('PLACE 2,3,NORTH')
+        expect(@play.command_type).to eq :place
+        expect(@play.command_x).to eq 2
+        expect(@play.command_y).to eq 3
+        expect(@play.command_f).to eq "NORTH"
+      end
+
+      it "should set the command type to nil if not valid" do
+        @play.parse_command('PLACID 2,3,NORTH')
+        expect(@play.command_type).to eq nil
+      end
+
+      it "should set the command type to nil if not valid" do
+        @play.parse_command('PLACID 2,3,NORTH')
+        expect(@play.command_type).to eq nil
+      end
+    end
+
+    context "#extract arguments" do
+      it "should extract the arguments from the command" do
+        @play.extract_arguments('2,3,NORTH')
+        expect(@play.command_x).to eq 2
+        expect(@play.command_y).to eq 3
+        expect(@play.command_f).to eq "NORTH"
+      end
     end
 
     context "#is a valid command?" do
+
+      it "should return true for 'PLACE'" do
+        valid = @play.is_valid_command?("PLACE 1,2,NORTH")
+        expect(valid).to be true
+      end
+
       it "should return true for 'RIGHT'" do
         valid = @play.is_valid_command?("RIGHT")
         expect(valid).to be true
@@ -53,31 +93,9 @@ module Robot
         expect(valid).to be true
       end
 
-      it "should return true for kind of 'PLACE X,Y,F'" do
-        ["NORTH", "WEST", "EAST", "SOUTH"].each do |dir|
-          valid = @play.validate_place_command("PLACE 1,1," + dir)
-          expect(valid).to be true
-        end
-      end
-
       it "should return false for an invalid command" do
         invalid = @play.is_valid_command?("PLACE 1,1,SOUT")
-        expect(invalid).to be false
-      end
-    end
-
-    context "#send place command" do
-      it "should send the command to the board" do
-        @play.send_place_command("PLACE 1,1,SOUTH")
-        expect(@play.robot.report).to eq "1, 1, SOUTH"
-      end
-
-      it "should be able to call send place command more than once" do
-        @play.send_place_command("PLACE 1,1,SOUTH")
-        @play.send_place_command("PLACE 1,1,NORTH")
-        @play.send_place_command("PLACE 1,3,WEST")
-        @play.send_place_command("PLACE 4,3,EAST")
-        expect(@play.robot.report).to eq "4, 3, EAST"
+        expect(invalid).to be true
       end
     end
 

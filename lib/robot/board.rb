@@ -11,7 +11,8 @@ module Robot
       "WEST"
     ]
     def initialize
-      @current_x, @current_y = 0,0
+      @current_x = 0
+      @current_y = 0
       # default direction NORTH
       @direction = DIRECTIONS[0]
     end

@@ -1,11 +1,12 @@
 module Robot
   class Play
-    attr_accessor :robot
-    VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT)
+    attr_accessor :robot, :command_type, :command_x, :command_y, :command_f
+    VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT PLACE)
     VALID_DIRECTIONS = %w(NORTH SOUTH EAST WEST)
 
     def initialize(options={})
       @robot = options[:robot] || Robot::Board.new
+      @command_x, @command_y, @command_f = 0,0,"NORTH"
     end
 
     def start
@@ -19,6 +20,7 @@ module Robot
           puts "\n\n\n\n\n\n"
           puts "=> Invalid command"
           puts valid_commands
+          puts self.inspect
           puts "=> Type a new command:"
         end
       end
@@ -30,16 +32,16 @@ module Robot
 
     def get_move(human_move)
       if is_valid_command?(human_move)
-        human_command_to_robot(human_move)
+        parse_command(human_move)
+        human_command_to_robot
         true
       else
-        try_again_no_valid_command
         false
       end
     end
 
-    def human_command_to_robot(cmd)
-      case cmd.downcase.to_sym
+    def human_command_to_robot
+      case self.command_type
         when :right
           @robot.move_right
         when :left
@@ -48,51 +50,39 @@ module Robot
           @robot.move
         when :report
           puts @robot.report
+        when :place
+          @robot.set_cell(command_x, command_y, command_f)
         else
-          send_place_command(cmd)
+          nil
       end
     end
 
-    def try_again_no_valid_command
-      "Sorry, try again"
-    end
-
-    def send_place_command(cmd)
-      if validate_place_command(cmd)
-        x, y, f = @coords[0].to_i, @coords[1].to_i, @direction
-        @robot.set_cell(x, y, f)
-      end
-    end
-
-    def is_valid_command?(cmd)
-      # does perform a loop unfortunately, but it would be the same with Array#Index
-      return true if VALID_COMMANDS.include?(cmd)
-      validate_place_command(cmd)
-    end
-
-    def validate_place_command(cmd)
-      # all this code could be done with a regex but in that way
-      # we can manage way more exceptions and see where the user fails (in the future)
-      return false if not cmd.match(/^PLACE/)
-      @coords = cmd.gsub("PLACE", "").strip.split(",")
-      return false if not @coords.size == 3
-      return false unless to_number(@coords[0]) or to_number(@coords[1])
-      if is_valid_direction?(@coords[2])
-        true
+    def parse_command(cmd)
+      command = cmd.split(" ")
+      type = command[0]
+      args = command[1]
+      if is_valid_command?(type) and args
+        self.command_type = type.downcase.to_sym
+        extract_arguments(args)
+      elsif is_valid_command?(type)
+        self.command_type = type.downcase.to_sym
       else
-        false
+        self.command_type = nil
       end
     end
 
-    # assign the direction to the variable in case the direction is valid
-    def is_valid_direction?(direction)
-      @direction = direction and return true if VALID_DIRECTIONS.include?(direction)
-      false
+    def extract_arguments(args)
+      arguments = args.split(",")
+      if VALID_DIRECTIONS.include?(arguments[2])
+        self.command_x = Integer(arguments[0])
+        self.command_y = Integer(arguments[1])
+        self.command_f = arguments[2]
+      end
     end
 
-    # check that the string is a number
-    def to_number(str)
-      str.to_i if str[/^-?\d+$/] and str.size == 1
+    def is_valid_command?(type)
+      type = type.split(" ")[0]
+      VALID_COMMANDS.include?(type)
     end
 
   end
