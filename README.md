@@ -23,8 +23,6 @@ MOVE
 ```
 
 ```
-#!ruby
-
 LEFT
 ```
 
@@ -149,9 +147,22 @@ rspec
 
 ## RUN THE EXAMPLE:
 -----------
+```
+git clone https://github.com/lorenzosinisi/robot-ruby
 
-clone the repo
+cd robot-ruby 
 
-run the test with "rspec"
+rspec
 
-run "ruby example/example.rb" in this directory and follow the instructions
+ruby example/example.rb
+
+MOVE
+
+MOVE
+
+RIGHT
+
+REPORT
+
+```
+
