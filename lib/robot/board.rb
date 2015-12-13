@@ -74,7 +74,7 @@ module Robot
     end
 
     def in_grid?(x = current_x, y = current_y)
-      [0,1,2,3,4].include?(x) and [0,1,2,3,4].include?(y)
+      (x >= 0 and x <= 4) and (y >= 0 and y <= 4)
     end
 
   end
