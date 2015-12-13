@@ -2,7 +2,8 @@ module Robot
   class Board
     # this class is responsible of handling the movement of the robot on the plan
     # the grid is represented by an array of dimentions 5x5
-    attr_accessor :position, :direction
+    attr_accessor :current_x, :current_y, :direction
+    # current_x current_y instead of an array
     DIRECTIONS = [
       "NORTH",
       "EAST",
@@ -10,7 +11,7 @@ module Robot
       "WEST"
     ]
     def initialize
-      @position = [0,0]
+      @current_x, @current_y = 0,0
       # default direction NORTH
       @direction = DIRECTIONS[0]
     end
@@ -18,11 +19,12 @@ module Robot
     def default_grid
       Array.new(5) { Array.new(5) {} }
     end
-
+    # use constrain > 0 < 4
     def set_cell(x,y, value)
       if in_grid?(x,y)
         self.direction = value
-        self.position = [x,y]
+        self.current_x = x
+        self.current_y = y
         return true
       end
       false
@@ -31,26 +33,18 @@ module Robot
     def move
       case direction
         when "SOUTH"
-          self.set_cell(position[0], position[1] - 1, direction)
+          self.set_cell(current_x, current_y - 1, direction)
         when "NORTH"
-          self.set_cell(position[0], position[1] + 1, direction)
+          self.set_cell(current_x, current_y + 1, direction)
         when "EAST"
-          self.set_cell(position[0] + 1, position[1], direction)
+          self.set_cell(current_x + 1, current_y, direction)
         when "WEST"
-          self.set_cell(position[0] - 1, position[1], direction)
+          self.set_cell(current_x - 1, current_y, direction)
       end
     end
 
     def report
-      "#{self.position[0]}, #{self.position[1]}, #{self.direction}"
-    end
-
-    def current_x
-      self.position[0]
-    end
-
-    def current_y
-      self.position[0]
+      "#{self.current_x}, #{self.current_y}, #{self.direction}"
     end
 
     def move_right

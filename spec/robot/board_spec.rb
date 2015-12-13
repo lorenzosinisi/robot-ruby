@@ -14,7 +14,8 @@ module Robot
     context "#initialize" do
 
       it "is expected to be itialized with the position 0x0 by default" do
-        expect(@board.position).to eq [0,0]
+        expect(@board.current_x).to eq 0
+        expect(@board.current_y).to eq 0
       end
 
       it "is expected to be itialized with the position 0x0 by default" do
@@ -34,7 +35,8 @@ module Robot
 
       it "should also set the new position of the robot" do
         @board.set_cell(2,2, "right")
-        expect(@board.position).to eq [2,2]
+        expect(@board.current_x).to eq 2
+        expect(@board.current_y).to eq 2
       end
     end
 
@@ -97,10 +99,10 @@ module Robot
       it "should move the robot one position further in the direction it is now" do
         @board.set_cell(0,0, "NORTH")
         expect(@board.move).to eq true
-        expect(@board.position).to eq([0,1])
+        expect(@board.current_y).to eq(1)
 
         expect(@board.move).to eq true
-        expect(@board.position).to eq([0,2])
+        expect(@board.current_y).to eq(2)
 
         #@board.set_cell(2,2, "WEST")
         #expect(@board.move).to eq true
