@@ -5,6 +5,8 @@ module Robot
     before(:each) do
       @board = Robot::Board.new
       @play = Play.new({robot: @board})
+      @valid_commands = %w(RIGHT LEFT REPORT PLACE)
+      @not_valid_commands = %w(pla p 4 cis 55 % 3434 ; .. + * place)
     end
 
     it "should be a Robot module" do
@@ -15,7 +17,7 @@ module Robot
       expect(@play.robot).to be @board
     end
 
-    context "#get_move" do
+    context "#get_move with valid commands" do
 
       it "converts human_move of 'RIGHT'  to right" do
         @play.get_move('RIGHT')
@@ -42,6 +44,14 @@ module Robot
       end
     end
 
+    context "#get_move with valid commands" do
+      it "should return false" do
+        @not_valid_commands.each do |c|
+          expect(@play.get_move(c)).to be false
+        end
+      end
+    end
+
     context "#parse command" do
       it "should set the command type if valid" do
         @play.parse_command('PLACE 2,3,NORTH')
@@ -55,49 +65,44 @@ module Robot
         @play.parse_command('PLACID 2,3,NORTH')
         expect(@play.command_type).to eq nil
       end
-
-      it "should set the command type to nil if not valid" do
-        @play.parse_command('PLACID 2,3,NORTH')
-        expect(@play.command_type).to eq nil
-      end
     end
 
     context "#extract arguments" do
-      it "should extract the arguments from the command" do
+      it "should extract the arguments from the command and assign them" do
         @play.extract_arguments('2,3,NORTH')
         expect(@play.command_x).to eq 2
         expect(@play.command_y).to eq 3
         expect(@play.command_f).to eq "NORTH"
       end
+
+      it "should raise an error ArgumentError if one of the coords is not a number" do
+        expect{@play.extract_arguments('ciao,hello,NORTH')}.to raise_error(ArgumentError)
+        expect{@play.extract_arguments(',,NORTH')}.to raise_error(ArgumentError)
+      end
     end
 
-    context "#is a valid command?" do
+    context "#is a valid command? with valid commands" do
 
-      it "should return true for 'PLACE'" do
+      it "should return true for 'PLACE x,y,f'" do
         valid = @play.is_valid_command?("PLACE 1,2,NORTH")
         expect(valid).to be true
       end
 
-      it "should return true for 'RIGHT'" do
-        valid = @play.is_valid_command?("RIGHT")
-        expect(valid).to be true
-      end
-
-      it "should return true for 'LEFT'" do
-        valid = @play.is_valid_command?('LEFT')
-        expect(valid).to be true
-      end
-
-      it "should return true for 'REPORT'" do
-        valid = @play.is_valid_command?('REPORT')
-        expect(valid).to be true
-      end
-
-      it "should return false for an invalid command" do
-        invalid = @play.is_valid_command?("PLACE 1,1,SOUT")
-        expect(invalid).to be true
+      it "should return true for a valid command" do
+        @valid_commands.each do |c|
+          valid = @play.is_valid_command?(c)
+          expect(valid).to be true
+        end
       end
     end
 
+    context "#is a valid command? with invalid commands" do
+      it "should return false for an invalid command" do
+        @not_valid_commands.each do |c|
+          invalid = @play.is_valid_command?(c)
+          expect(invalid).to be false
+        end
+      end
+    end
   end
 end

@@ -88,6 +88,7 @@ module Robot
         true
       else
          puts "Not a valid command #{type}. #{valid_commands}"
+         false
       end
     end
 
