@@ -70,8 +70,8 @@ module Robot
 
     # first take the first argument of the command by splitting it by space
     # the first argument should be included in RIGHT LEFT MOVE REPORT PLACE
-    # than take the second part of the command and split it by command to get x,y and f
-    # if the command has arguments than extract them and assign as current new state
+    # than take the second part of the command and split it by comma to extract x,y and f
+    # if the command has arguments than extract them and assign them as a current new state
     def parse_command(cmd)
       command = cmd.split(" ")
       type = command[0]
