@@ -76,10 +76,9 @@ module Robot
       command = cmd.split(" ")
       type = command[0]
       args = command[1]
-      if is_valid_command?(type) and args
-        self.command_type = type.downcase.to_sym
-        extract_arguments(args)
-      elsif is_valid_command?(type)
+      valid = is_valid_command?(type)
+      if valid
+        extract_arguments(args) if args
         self.command_type = type.downcase.to_sym
       else
         self.command_type = nil
