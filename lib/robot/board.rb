@@ -5,7 +5,7 @@ module Robot
     DIRECTIONS = [:north, :east, :south, :west]
     
     def initialize
-      @current_x, @current_y, @direction  = 0, 0, DIRECTIONS[0]
+      @current_x, @current_y, @direction  = 0, 0, :north
     end
 
     def place(x,y, value)
@@ -17,7 +17,7 @@ module Robot
       end
     end
 
-    def move
+    def move(*args)
       case direction
         when :south
           self.place(current_x, current_y - 1, direction)
@@ -28,11 +28,11 @@ module Robot
         when :west
           self.place(current_x - 1, current_y, direction)
         else
-          raise "not a valid direction #{direction}"
+          puts "not a valid direction #{direction}"
       end
     end
 
-    def right
+    def right(*args)
       case direction
         when :south
           self.direction = :west
@@ -45,7 +45,7 @@ module Robot
       end
     end
 
-    def left
+    def left(*args)
       case direction
         when :south
           self.direction = :east
@@ -58,7 +58,7 @@ module Robot
       end
     end
 
-    def report
+    def report(*args)
       status = [current_x, current_y, direction.to_s.upcase]
       puts status
       status
@@ -67,6 +67,6 @@ module Robot
     def in_grid?(x = current_x, y = current_y)
       (x >= 0 and x <= 4) and (y >= 0 and y <= 4)
     end
-
+    
   end
 end

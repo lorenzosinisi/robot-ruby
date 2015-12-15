@@ -20,19 +20,7 @@ module Robot
     def get_move(move)
       if is_valid_command?(move)
         parse_command!(move)
-        send_command_to_robot!
-      end
-    end
-
-    def send_command_to_robot!
-      case command
-        when :right, :left, :move, :report
-          robot.send(command)
-        when :place
-          robot.place(command_x, command_y, command_f)
-        else
-          puts "Not a valid command #{command}"
-          puts valid_commands
+        robot.send(command, command_x, command_y, command_f)
       end
     end
 
