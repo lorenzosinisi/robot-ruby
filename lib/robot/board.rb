@@ -5,23 +5,21 @@ module Robot
     attr_accessor :current_x, :current_y, :direction
     # current_x current_y instead of an array
     DIRECTIONS = [
-      "NORTH",
-      "EAST",
-      "SOUTH",
-      "WEST"
+      :north,
+      :east,
+      :south,
+      :west
     ]
     
-
     def initialize
       @current_x = 0
       @current_y = 0
-      # default direction NORTH
       @direction = DIRECTIONS[0]
     end
 
-    def set_cell(x,y, value)
+    def place(x,y, value)
       if in_grid?(x,y)
-        self.direction = value
+        self.direction = value.downcase.to_sym
         self.current_x = x
         self.current_y = y
         return true
@@ -29,48 +27,50 @@ module Robot
       false
     end
 
-    alias_method :place, :set_cell
-
     def move
-      case self.direction.downcase.to_sym
+      case direction
         when :south
-          self.set_cell(current_x, current_y - 1, direction)
+          self.place(current_x, current_y - 1, direction)
         when :north
-          self.set_cell(current_x, current_y + 1, direction)
+          self.place(current_x, current_y + 1, direction)
         when :east
-          self.set_cell(current_x + 1, current_y, direction)
+          self.place(current_x + 1, current_y, direction)
         when :west
-          self.set_cell(current_x - 1, current_y, direction)
+          self.place(current_x - 1, current_y, direction)
+        else
+          raise "not a valid direction #{direction}"
       end
     end
 
     def report
-      [current_x, current_y, direction]
+      status = [current_x, current_y, direction.to_s.upcase]
+      puts status
+      status
     end
 
     def right
-      case self.direction.downcase.to_sym
+      case direction
         when :south
-          self.direction = "WEST"
+          self.direction = :west
         when :north
-          self.direction = "EAST"
+          self.direction = :east
         when :east
-          self.direction = "SOUTH"
+          self.direction = :south
         when :west
-          self.direction = "NORTH"
+          self.direction = :north
       end
     end
 
     def left
-      case self.direction.downcase.to_sym
+      case direction
         when :south
-          self.direction = "EAST"
+          self.direction = :east
         when :north
-          self.direction = "WEST"
+          self.direction = :west
         when :east
-          self.direction = "NORTH"
+          self.direction = :north
         when :west
-          self.direction = "SOUTH"
+          self.direction = :south
       end
     end
 
