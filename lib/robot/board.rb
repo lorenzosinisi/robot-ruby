@@ -4,17 +4,10 @@ module Robot
     # the grid is represented by an array of dimentions 5x5
     attr_accessor :current_x, :current_y, :direction
     # current_x current_y instead of an array
-    DIRECTIONS = [
-      :north,
-      :east,
-      :south,
-      :west
-    ]
+    DIRECTIONS = [:north, :east, :south, :west]
     
     def initialize
-      @current_x = 0
-      @current_y = 0
-      @direction = DIRECTIONS[0]
+      @current_x, @current_y, @direction  = 0, 0, DIRECTIONS[0]
     end
 
     def place(x,y, value)
@@ -42,12 +35,6 @@ module Robot
       end
     end
 
-    def report
-      status = [current_x, current_y, direction.to_s.upcase]
-      puts status
-      status
-    end
-
     def right
       case direction
         when :south
@@ -72,6 +59,12 @@ module Robot
         when :west
           self.direction = :south
       end
+    end
+
+    def report
+      status = [current_x, current_y, direction.to_s.upcase]
+      puts status
+      status
     end
 
     def in_grid?(x = current_x, y = current_y)
