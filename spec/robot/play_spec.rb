@@ -30,7 +30,7 @@ module Robot
       end
 
       it "converts human_move of 'REPORT' to report" do
-        expect(@play.get_move('REPORT')).to be true
+        expect(@play.get_move('REPORT')).to eq [0, 0, "NORTH"]
       end
 
       it "converts human_move of 'PLACE X,Y,F' to place(x,y,f)" do
@@ -54,7 +54,7 @@ module Robot
     context "#get_move with valid commands" do
       it "should return false" do
         @not_valid_commands.each do |c|
-          expect(@play.get_move(c)).to be false
+          expect(@play.get_move(c)).to be nil
         end
       end
     end

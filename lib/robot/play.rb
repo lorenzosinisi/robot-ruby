@@ -21,9 +21,6 @@ module Robot
       if is_valid_command?(move)
         parse_command!(move)
         send_command_to_robot!
-        true
-      else
-        false
       end
     end
 
