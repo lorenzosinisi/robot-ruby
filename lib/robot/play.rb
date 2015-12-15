@@ -48,6 +48,7 @@ module Robot
     def extract_arguments!(args)
       args = args.split(",")
       x, y, f = args[0], args[1], args[2]
+
       if valid_coords?(x,y) and valid_direction?(f)
         self.command_x = x.to_i
         self.command_y = y.to_i
@@ -83,8 +84,7 @@ module Robot
     end
 
     def solicit_new_command
-      puts "\n\n\n"
-      puts "=> Type a new command:"
+      puts "\n\n\n => Type a new command:"
     end
     alias_method :show_welcome_message, :solicit_new_command
   end
