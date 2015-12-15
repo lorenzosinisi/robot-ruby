@@ -61,35 +61,35 @@ module Robot
 
     context "#move right" do
       it "should rotate the robot 90 degrees in the specified direction without changing the position" do
-        @board.move_right
+        @board.right
         expect(@board.direction).to eq("EAST")
       end
     end
 
     context "#move left" do
       it "should rotate the robot 90 degrees in the specified direction without changing the position" do
-        @board.move_left
+        @board.left
         expect(@board.direction).to eq("WEST")
       end
       it "should rotate the robot 360 degrees in the specified direction without changing the position" do
         4.times do
-          @board.move_left
+          @board.left
         end
         expect(@board.direction).to eq("NORTH")
       end
 
       it "should rotate the robot 360 degrees 100 times" do
         400.times do
-          @board.move_left
+          @board.left
         end
         expect(@board.direction).to eq("NORTH")
       end
 
       it "should rotate the robot 360 degrees 100 times and one to the right" do
         400.times do
-          @board.move_left
+          @board.left
         end
-        @board.move_right
+        @board.right
         expect(@board.direction).to eq("EAST")
       end
     end

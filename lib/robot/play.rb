@@ -54,15 +54,15 @@ module Robot
     def human_command_to_robot
       case self.command_type
         when :right
-          @robot.move_right
+          @robot.right
         when :left
-          @robot.move_left
+          @robot.left
         when :move
           @robot.move
         when :report
           puts @robot.report
         when :place
-          @robot.set_cell(command_x, command_y, command_f)
+          @robot.place(command_x, command_y, command_f)
         else
           nil
       end

@@ -10,6 +10,7 @@ module Robot
       "SOUTH",
       "WEST"
     ]
+    
 
     def initialize
       @current_x = 0
@@ -28,6 +29,8 @@ module Robot
       false
     end
 
+    alias_method :place, :set_cell
+
     def move
       case self.direction.downcase.to_sym
         when :south
@@ -45,7 +48,7 @@ module Robot
       [current_x, current_y, direction]
     end
 
-    def move_right
+    def right
       case self.direction.downcase.to_sym
         when :south
           self.direction = "WEST"
@@ -58,7 +61,7 @@ module Robot
       end
     end
 
-    def move_left
+    def left
       case self.direction.downcase.to_sym
         when :south
           self.direction = "EAST"
