@@ -35,6 +35,7 @@ module Robot
           robot.place(command_x, command_y, command_f)
         else
           puts "Not a valid command #{command_type}"
+          puts valid_commands
       end
     end
 
@@ -68,7 +69,7 @@ module Robot
       begin
         Integer(x) and Integer(y)
       rescue => e
-        puts e
+        puts e + valid_commands
         false
       end
     end
@@ -79,11 +80,6 @@ module Robot
     end
 
     # Messages for the user
-    
-    def show_welcome_message
-      puts valid_commands
-      solicit_new_command
-    end
 
     def valid_commands
       "Valid commands: #{VALID_COMMANDS}"
@@ -93,6 +89,6 @@ module Robot
       puts "\n\n\n"
       puts "=> Type a new command:"
     end
-
+    alias_method :show_welcome_message, :solicit_new_command
   end
 end
