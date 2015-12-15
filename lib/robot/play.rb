@@ -69,8 +69,7 @@ module Robot
       begin
         Integer(x) and Integer(y)
       rescue => e
-        puts e + valid_commands
-        false
+        puts e; puts valid_commands; false
       end
     end
 
@@ -78,8 +77,6 @@ module Robot
       return true if VALID_DIRECTIONS.include?(d)
       puts "Not a valid direction: '#{arguments[2]}'. Valid directions #{VALID_DIRECTIONS}"
     end
-
-    # Messages for the user
 
     def valid_commands
       "Valid commands: #{VALID_COMMANDS}"
