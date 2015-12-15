@@ -27,8 +27,6 @@ module Robot
       end
     end
 
-    alias_method :it_can_execute, :get_move
-
     def send_command_to_robot!
       case command_type
         when :right, :left, :move, :report
