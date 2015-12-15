@@ -120,7 +120,7 @@ module Robot
 
     context "#report" do
       it "should print the position of the robot" do
-        expect(@board.report).to eq "0, 0, NORTH"
+        expect(@board.report).to eq [0, 0, "NORTH"]
       end
     end
 

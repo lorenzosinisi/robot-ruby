@@ -104,13 +104,13 @@ module Robot
       it "example a)" do
         @play.get_move('PLACE 0,0,NORTH')
         @play.get_move('MOVE')
-        expect(@play.robot.report).to eq "0, 1, NORTH"
+        expect(@play.robot.report).to eq [0, 1, "NORTH"]
         #Output: 0,1,NORTH
       end
       it "example b)" do
         @play.get_move('PLACE 0,0,NORTH')
         @play.get_move('LEFT')
-        expect(@play.robot.report).to eq "0, 0, WEST"
+        expect(@play.robot.report).to eq [0, 0, "WEST"]
         #Output: 0,0,WEST
       end
       it "example c)" do
@@ -119,7 +119,7 @@ module Robot
         @play.get_move('MOVE')
         @play.get_move('LEFT')
         @play.get_move('MOVE')
-        expect(@play.robot.report).to eq "3, 3, NORTH"
+        expect(@play.robot.report).to eq [3, 3, "NORTH"]
         #Output: 3,3,NORTH
       end
     end

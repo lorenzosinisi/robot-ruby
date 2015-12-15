@@ -10,6 +10,7 @@ module Robot
       "SOUTH",
       "WEST"
     ]
+
     def initialize
       @current_x = 0
       @current_y = 0
@@ -41,7 +42,7 @@ module Robot
     end
 
     def report
-      "#{self.current_x}, #{self.current_y}, #{self.direction}"
+      [current_x, current_y, direction]
     end
 
     def move_right
