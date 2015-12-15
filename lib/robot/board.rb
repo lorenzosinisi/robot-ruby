@@ -1,9 +1,7 @@
 module Robot
   class Board
-    # this class is responsible of handling the movement of the robot on the plan
-    # the grid is represented by an array of dimentions 5x5
+
     attr_accessor :current_x, :current_y, :direction
-    # current_x current_y instead of an array
     DIRECTIONS = [:north, :east, :south, :west]
     
     def initialize
@@ -15,9 +13,8 @@ module Robot
         self.direction = value.downcase.to_sym
         self.current_x = x
         self.current_y = y
-        return true
+        true
       end
-      false
     end
 
     def move

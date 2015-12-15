@@ -29,7 +29,7 @@ module Robot
       end
 
       it "sets the value of a cell that is not on the grid" do
-        expect(@board.place(345345,44, "right")).to eq false
+        expect(@board.place(345345,44, "right")).to eq nil
       end
 
       it "should also set the new position of the robot" do
