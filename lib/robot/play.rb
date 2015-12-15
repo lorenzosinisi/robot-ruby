@@ -12,11 +12,7 @@ module Robot
     def start
       show_welcome_message
       loop do
-        if it_can_execute(gets.chomp) # get the user input here <<<<
-          # great!
-        else
-          show_error
-        end
+        get_move(gets.chomp) # get the user input here <<<<
         solicit_new_command
       end
     end
@@ -98,10 +94,6 @@ module Robot
     def solicit_new_command
       puts "\n\n\n"
       puts "=> Type a new command:"
-    end
-
-    def show_error
-      puts "=> Invalid command!"
     end
 
   end
