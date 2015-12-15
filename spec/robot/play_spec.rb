@@ -69,7 +69,7 @@ module Robot
 
       it "should set the command type to nil if not valid" do
         @play.parse_command!('PLACID 2,3,NORTH')
-        expect(@play.command_type).to eq nil
+        expect(@play.command).to eq nil
       end
     end
 

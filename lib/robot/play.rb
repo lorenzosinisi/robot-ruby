@@ -1,6 +1,6 @@
 module Robot
   class Play
-    attr_accessor :robot, :command_type, :command_x, :command_y, :command_f
+    attr_accessor :robot, :command, :command_x, :command_y, :command_f
     VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT PLACE)
     VALID_DIRECTIONS = %w(NORTH SOUTH EAST WEST)
 
@@ -28,13 +28,13 @@ module Robot
     end
 
     def send_command_to_robot!
-      case command_type
+      case command
         when :right, :left, :move, :report
-          robot.send(command_type)
+          robot.send(command)
         when :place
           robot.place(command_x, command_y, command_f)
         else
-          puts "Not a valid command #{command_type}"
+          puts "Not a valid command #{command}"
           puts valid_commands
       end
     end
@@ -58,7 +58,7 @@ module Robot
     def is_valid_command?(type)
       type = type.split(" ")[0]
       if VALID_COMMANDS.include?(type)
-        self.command_type = type.downcase.to_sym
+        self.command = type.downcase.to_sym
         true
       else
          puts "Not a valid command #{type}. #{valid_commands}"
