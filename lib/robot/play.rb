@@ -25,7 +25,7 @@ module Robot
     end
 
     def parse_command!(cmd)
-      command = cmd.split(" ")
+      command = cmd.split
       type, args = command[0], command[1]
       extract_arguments!(args) if args
     end
@@ -41,8 +41,8 @@ module Robot
       end
     end
 
-    def is_valid_command?(type)
-      type = type.split(" ")[0] # TODO find a better way
+    def is_valid_command?(args)
+      type = args.split.first
       if VALID_COMMANDS.include?(type)
         self.command = type.downcase.to_sym; true
       else
@@ -58,9 +58,9 @@ module Robot
       end
     end
 
-    def valid_direction?(d)
-      return true if VALID_DIRECTIONS.include?(d)
-      puts "Not a valid direction: '#{arguments[2]}'. Valid directions #{VALID_DIRECTIONS}"
+    def valid_direction?(dir)
+      return true if VALID_DIRECTIONS.include?(dir)
+      puts "Not a valid direction: '#{dir}'. Valid directions #{VALID_DIRECTIONS}"
     end
 
     def valid_commands
