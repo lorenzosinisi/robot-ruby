@@ -42,10 +42,9 @@ module Robot
     end
 
     def is_valid_command?(type)
-      type = type.split(" ")[0]
+      type = type.split(" ")[0] # TODO find a better way
       if VALID_COMMANDS.include?(type)
-        self.command = type.downcase.to_sym
-        true
+        self.command = type.downcase.to_sym; true
       else
          puts "Not a valid command #{type}. #{valid_commands}"
       end
