@@ -26,14 +26,15 @@ module Robot
         expect(board.place(2,2, "right")).to be(true)
       end
 
-      it "returns nil if trying to use the command place with invalid coords" do
-        expect(board.place(345345,44, "right")).to be(nil)
-      end
-
-      it "should also set the new position of the robot" do
+      it "should set the new position of the robot" do
         board.place(2,2, "north")
         expect(board.report).to eq [2, 2, "NORTH"]
       end
+
+      it "returns nil if trying to use the command place with invalid coords" do
+        expect(board.place(345345,44, "right")).to be(nil)
+      end
+      
     end
 
     context "#current x and current y" do
@@ -68,7 +69,7 @@ module Robot
         board.left
         expect(board.direction).to be(:west)
       end
-      
+
       it "should rotate the robot 360 degrees in the specified direction without changing the position" do
         4.times do
           board.left
