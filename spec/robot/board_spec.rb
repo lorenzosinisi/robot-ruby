@@ -12,8 +12,8 @@ module Robot
     context "#initialize" do
 
       it "is expected to be itialized with the position 0x0 by default" do
-        expect(board.current_x).to be(0)
-        expect(board.current_y).to be(0)
+        new_board = Robot::Board.new
+        expect(new_board.report).to eq [0, 0, "NORTH"]
       end
 
       it "is expected to be itialized with the position 0x0 by default" do
@@ -34,7 +34,7 @@ module Robot
       it "returns nil if trying to use the command place with invalid coords" do
         expect(board.place(345345,44, "right")).to be(nil)
       end
-      
+
     end
 
     context "#current x and current y" do
