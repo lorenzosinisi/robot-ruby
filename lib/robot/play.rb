@@ -10,10 +10,9 @@ module Robot
     end
 
     def start
-      show_welcome_message
       loop do
-        get_move(gets.chomp) # get the user input here <<<<
         solicit_new_command
+        get_move(gets.chomp)
       end
     end
 
@@ -23,7 +22,7 @@ module Robot
         robot.send(command, command_x, command_y, command_f)
       end
     end
-
+    
     def parse_command!(cmd)
       command = cmd.split
       type, args = command[0], command[1]
@@ -70,6 +69,6 @@ module Robot
     def solicit_new_command
       puts "\n\n\n => Type a new command:"
     end
-    alias_method :show_welcome_message, :solicit_new_command
+
   end
 end
