@@ -3,10 +3,10 @@ require 'spec_helper'
 module Robot
   describe Play do
     
-    let(:board) { Robot::Board.new }
-    let(:play) { Play.new({robot: board}) }
-    let(:valid_commands) { %w(RIGHT LEFT REPORT PLACE) }
-    let(:not_valid_commands) { %w(pla p 4 cis 55 % 3434 ; .. + * place) }
+    let!(:board) { Robot::Board.new }
+    let!(:play) { Play.new({robot: board}) }
+    let!(:valid_commands) { %w(RIGHT LEFT REPORT PLACE) }
+    let!(:not_valid_commands) { %w(pla p 4 cis 55 % 3434 ; .. + * place) }
 
     it "should be a Robot module" do
       expect(Play).to be Robot::Play
