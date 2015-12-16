@@ -7,7 +7,7 @@ module Robot
     def initialize
       @current_x, @current_y, @direction  = 0, 0, :north
     end
-
+    
     def place(x,y, value)
       if in_grid?(x,y)
         self.direction = value.downcase.to_sym
