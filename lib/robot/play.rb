@@ -16,9 +16,9 @@ module Robot
       end
     end
 
-    def get_move(move)
-      if is_valid_command?(move)
-        parse_command!(move)
+    def get_move(cmd)
+      if is_valid_command?(cmd)
+        parse_command!(cmd)
         robot.send(command, command_x, command_y, command_f)
       end
     end
