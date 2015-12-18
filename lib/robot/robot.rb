@@ -67,7 +67,7 @@ module Roboruby
     end
 
     def in_grid?(x = current_x, y = current_y)
-      (x >= 0 and x <= 4) and (y >= 0 and y <= 4)
+      (x >= board.origin and x <= board.x) and (y >= board.origin and y <= board.x)
     end
 
   end
