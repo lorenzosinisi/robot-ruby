@@ -6,7 +6,7 @@ module Roboruby
     DIRECTIONS = [:north, :east, :south, :west]
 
     def initialize(options={})
-      @board = options[:board] || Roboruby::Board.new
+      @board     = options[:board] || Roboruby::Board.new
       @current_x = board.origin
       @current_y = board.origin
       @direction = :north
@@ -25,23 +25,26 @@ module Roboruby
     # Command move
     def move(*)
       new_value = movements[direction].first
-      self.place(new_value[:x], new_value[:y])
+      place(new_value[:x], new_value[:y])
     end
 
     # Command right
     def right(*)
-      self.direction = movements[:right].first[direction]
+      new_direction = movements[:right].first[direction]
+      place(current_x, current_y, new_direction)
     end
 
     # Command left
     def left(*)
-      self.direction = movements[:left].first[direction]
+      new_direction = movements[:left].first[direction]
+      place(current_x, current_y, new_direction)
     end
 
     # Command shake
     def shake(*)
-      new_value = movements[:shake].first
-      place(new_value[:x], new_value[:y], new_value[:direction])
+      new_position = movements[:shake].first
+      x,y,f = new_position[:x], new_position[:y], new_position[:direction]
+      place(x, y, f)
     end
 
     # Command report
