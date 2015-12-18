@@ -19,6 +19,19 @@ module Roboruby
       it "is expected to be itialized with the position 0x0 by default" do
         expect(robot.direction).to eq :north
       end
+
+      it "is expected to be itialized a default board" do
+        expect(robot.board).to_not be nil
+      end
+
+      it "is expected to be itialized a custom board" do
+        board = Roboruby::Board.new({x: 10, y: 4, origin: 1})
+        robot = Roboruby::Robot.new({board: board})
+        expect(robot.board.x).to be 10
+        expect(robot.board.y).to be 4
+        expect(robot.board.origin).to be 1
+      end
+
     end
 
     context "#set cell" do
@@ -94,7 +107,7 @@ module Roboruby
     end
 
     context "#move" do
-      
+
       it "should return true" do
         robot.place(0,0, :north)
         expect(robot.move).to eq(true)

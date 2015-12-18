@@ -2,12 +2,14 @@ module Roboruby
   class Robot
 
     attr_accessor :current_x, :current_y, :direction
+    attr_reader :board
     DIRECTIONS = [:north, :east, :south, :west]
-    
-    def initialize
+
+    def initialize(options={})
+      @board = options[:board] || Roboruby::Board.new
       @current_x, @current_y, @direction  = 0, 0, :north
     end
-    
+
     def place(x,y, value)
       if in_grid?(x,y)
         self.direction = value.downcase.to_sym
@@ -67,6 +69,6 @@ module Roboruby
     def in_grid?(x = current_x, y = current_y)
       (x >= 0 and x <= 4) and (y >= 0 and y <= 4)
     end
-    
+
   end
 end
