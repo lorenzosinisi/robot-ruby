@@ -19,7 +19,7 @@ module Roboruby
       end
     end
 
-    def move(*args)
+    def move(*)
       case direction
         when :south
           self.place(current_x, current_y - 1, direction)
@@ -34,7 +34,7 @@ module Roboruby
       end
     end
 
-    def right(*args)
+    def right(*)
       case direction
         when :south
           self.direction = :west
@@ -47,7 +47,7 @@ module Roboruby
       end
     end
 
-    def left(*args)
+    def left(*)
       case direction
         when :south
           self.direction = :east
@@ -60,7 +60,7 @@ module Roboruby
       end
     end
 
-    def report(*args)
+    def report(*)
       status = [current_x, current_y, direction.to_s.upcase]
       puts status
       status
