@@ -5,7 +5,8 @@ module Roboruby
     VALID_DIRECTIONS = %w(NORTH SOUTH EAST WEST)
 
     def initialize(options={})
-      @robot = options[:robot] || Roboruby::Robot.new
+      board =  options[:board] || Roboruby::Board.new
+      @robot = options[:robot] || Roboruby::Robot.new({board: board})
       @command_x, @command_y, @command_f = 0, 0, "NORTH"
     end
 
@@ -22,7 +23,7 @@ module Roboruby
         robot.send(command, command_x, command_y, command_f)
       end
     end
-    
+
     def parse_command!(cmd)
       command = cmd.split
       type, args = command[0], command[1]

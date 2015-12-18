@@ -2,9 +2,10 @@ require 'spec_helper'
 
 module Roboruby
   describe Play do
-    
+
     let!(:robot) { Roboruby::Robot.new }
     let!(:play) { Play.new({robot: robot}) }
+    let!(:board) { Roboruby::Board.new  }
     let!(:valid_commands) { %w(RIGHT LEFT REPORT PLACE) }
     let!(:not_valid_commands) { %w(pla p 4 cis 55 % 3434 ; .. + * place) }
 
@@ -16,6 +17,13 @@ module Roboruby
       expect(play.robot).to be robot
     end
 
+    context "#initialize" do
+      it "should initialize the robot with a custom board" do
+        robot = Roboruby::Robot.new({board: board})
+        play = Play.new({robot: robot})
+        expect(play.robot.board.object_id).to be board.object_id
+      end
+    end
     context "#get_move with valid commands" do
 
       it "converts human_move of 'RIGHT'  to right" do
