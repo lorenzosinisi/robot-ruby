@@ -15,5 +15,16 @@ module Roboruby
         expect(board.origin).to be 0
       end
     end
+
+    context "#initialize with options" do
+      it "should initialize the options" do
+        x, y, origin = rand(0..100), rand(0..100), rand(0..100)
+        board_with_options = Roboruby::Board.new({x: x, y: y, origin: origin })
+        expect(board_with_options.x).to be x
+        expect(board_with_options.y).to be y
+        expect(board_with_options.origin).to be origin
+      end
+    end
+
   end
 end
