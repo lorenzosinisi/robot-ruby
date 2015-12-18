@@ -4,7 +4,7 @@ module Roboruby
   describe Play do
     
     let!(:robot) { Roboruby::Robot.new }
-    let!(:play) { Play.new({robot: board}) }
+    let!(:play) { Play.new({robot: robot}) }
     let!(:valid_commands) { %w(RIGHT LEFT REPORT PLACE) }
     let!(:not_valid_commands) { %w(pla p 4 cis 55 % 3434 ; .. + * place) }
 
@@ -13,7 +13,7 @@ module Roboruby
     end
 
     it "should start the robot and initiate the table" do
-      expect(play.robot).to be board
+      expect(play.robot).to be robot
     end
 
     context "#get_move with valid commands" do
