@@ -11,6 +11,9 @@ module Roboruby
         expect(board.x).to be 4
         expect(board.y).to be 4
       end
+      it "the origin should be 0 by default" do
+        expect(board.origin).to be 0
+      end
     end
   end
 end
