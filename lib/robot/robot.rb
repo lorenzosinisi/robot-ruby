@@ -7,7 +7,9 @@ module Roboruby
 
     def initialize(options={})
       @board = options[:board] || Roboruby::Board.new
-      @current_x, @current_y, @direction  = 0, 0, :north
+      @current_x = board.origin
+      @current_y = board.origin
+      @direction = :north
     end
 
     def place(x,y, value)
@@ -20,44 +22,64 @@ module Roboruby
     end
 
     def move(*)
-      case direction
-        when :south
-          self.place(current_x, current_y - 1, direction)
-        when :north
-          self.place(current_x, current_y + 1, direction)
-        when :east
-          self.place(current_x + 1, current_y, direction)
-        when :west
-          self.place(current_x - 1, current_y, direction)
-        else
-          puts "not a valid direction #{direction}"
-      end
+      new_value = movements[direction].first
+      self.place(new_value[:x], new_value[:y], new_value[:direction])
     end
 
     def right(*)
-      case direction
-        when :south
-          self.direction = :west
-        when :north
-          self.direction = :east
-        when :east
-          self.direction = :south
-        when :west
-          self.direction = :north
-      end
+      self.direction = movements[:right].first[direction]
     end
 
     def left(*)
-      case direction
-        when :south
-          self.direction = :east
-        when :north
-          self.direction = :west
-        when :east
-          self.direction = :north
-        when :west
-          self.direction = :south
-      end
+      self.direction = movements[:left].first[direction]
+    end
+
+    def shake(*)
+      new_value = movements[:shake].first
+      self.place(new_value[:x], new_value[:y], new_value[:direction])
+    end
+
+    def movements
+      [ #:shake => [ # Pointing direction
+        #  :x => rand(board.origin..board.size), # new x
+        #  :y => rand(board.origin..board.size), # New y
+        #  :direction => direction # direction
+        #],
+        # Move when direction is:
+        :south => [ # Pointing direction
+          :x => current_x, # new x
+          :y => current_y - 1, # New y
+          :direction => direction # direction
+        ],
+        :north => [
+          :x => current_x,
+          :y => current_y + 1,
+          :direction => direction
+        ],
+        :east => [
+          :x => current_x + 1,
+          :y => current_y,
+          :direction => direction
+        ],
+        :west => [
+          :x => current_x - 1,
+          :y => current_y,
+          :direction => direction
+        ],
+        # Rotate in direction:
+        :left => [
+          :south => :east,
+          :north => :west,
+          :east => :north,
+          :west => :south
+        ],
+        :right => [
+          :south => :west,
+          :north => :east,
+          :east => :south,
+          :west => :north
+        ]
+       ][0]
     end
 
     def report(*)
