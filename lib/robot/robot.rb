@@ -41,7 +41,7 @@ module Roboruby
     # Command shake
     def shake(*)
       new_value = movements[:shake].first
-      self.place(new_value[:x], new_value[:y], new_value[:direction])
+      place(new_value[:x], new_value[:y], new_value[:direction])
     end
 
     # Command report
@@ -58,6 +58,7 @@ module Roboruby
     def movements
       [
         # MAPPING FOR COMMAND SHAKE
+        # Position the robot randomply in the board
         :shake => [
           :x => rand(board.origin..board.size),
           :y => rand(board.origin..board.size),
@@ -65,7 +66,7 @@ module Roboruby
         ],
 
         ## MAPPING FOR COMMAND MOVE
-        # Move one step when direction is:
+        # Move one step in the current direction by accessing the actual direction:
         :south => [ # Pointing direction
           :x => current_x, # new x
           :y => current_y - 1, # New y
@@ -86,6 +87,12 @@ module Roboruby
           :y => current_y,
           :direction => direction
         ],
+        # TODO to enable also diagonal movements
+        #:southeast => [
+        #  :x => current_x + 1 ,
+        #  :y => current_y - 1,
+        #  :direction => direction
+        #]
 
         ## MAPPING FOR COMMAND LEFT
         # Rotate in direction:
@@ -95,6 +102,12 @@ module Roboruby
           :east  => :north,
           :west  => :south
         ],
+        # TODO to enable also diagonal movements
+        #:left => [
+        #  :south     => :southwest,
+        #  :southwest => :west,
+        #  etc...
+        #]
 
         ## MAPPING FOR COMMAND RIGHT
         # Rotate in direction:
@@ -105,7 +118,7 @@ module Roboruby
           :west  => :north
         ]
 
-       ][0]
+       ].first
     end
 
   end
