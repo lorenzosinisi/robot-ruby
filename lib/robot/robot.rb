@@ -1,5 +1,5 @@
-module Robot
-  class Board
+module Roboruby
+  class Robot
 
     attr_accessor :current_x, :current_y, :direction
     DIRECTIONS = [:north, :east, :south, :west]

@@ -5,7 +5,7 @@ require 'robot/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "robot"
-  spec.version       = Robot::VERSION
+  spec.version       = Roboruby::VERSION
   spec.authors       = ["Lorenzo Sinisi"]
   spec.email         = ["lasslo.net@gmail.com"]
 

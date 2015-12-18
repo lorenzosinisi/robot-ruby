@@ -1,11 +1,11 @@
-module Robot
+module Roboruby
   class Play
     attr_accessor :robot, :command, :command_x, :command_y, :command_f
     VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT PLACE)
     VALID_DIRECTIONS = %w(NORTH SOUTH EAST WEST)
 
     def initialize(options={})
-      @robot = options[:robot] || Robot::Board.new
+      @robot = options[:robot] || Roboruby::Robot.new
       @command_x, @command_y, @command_f = 0, 0, "NORTH"
     end
 

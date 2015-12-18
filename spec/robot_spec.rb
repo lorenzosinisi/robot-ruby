@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Robot do
+describe Roboruby do
   it 'has a version number' do
-    expect(Robot::VERSION).not_to be nil
+    expect(Roboruby::VERSION).not_to be nil
   end
 end
