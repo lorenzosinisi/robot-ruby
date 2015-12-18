@@ -129,54 +129,54 @@ module Roboruby
       context "#move pointing different directions" do
         it "should move a step down" do
           robot.place(0,0, :south)
-          expect(robot.movements[robot.direction]).to eq ([{:x=>0, :y=>-1, :direction => robot.direction}])
+          expect(robot.step[robot.direction]).to eq ({:x=>0, :y=>-1})
         end
         it "should move a step up" do
           robot.place(0,0, :north)
-          expect(robot.movements[robot.direction]).to eq ([{:x=>0, :y=>1, :direction => robot.direction}])
+          expect(robot.step[robot.direction]).to eq ({:x=>0, :y=>1})
         end
         it "should move a step to the right" do
           robot.place(2,2, :west)
-          expect(robot.movements[robot.direction]).to eq ([{:x=>1, :y=>2, :direction => robot.direction}])
+          expect(robot.step[robot.direction]).to eq ({:x=>1, :y=>2})
         end
         it "should move a step to the left" do
           robot.place(2,2, :east)
-          expect(robot.movements[robot.direction]).to eq ([{:x=>3, :y=>2, :direction => robot.direction}])
+          expect(robot.step[robot.direction]).to eq ({:x=>3, :y=>2})
         end
       end
 
       context "right/left pointing :south" do
         it "move left/right when poiting in one direction" do
-          expect(robot.movements[:left].first[:south]).to eq :east
-          expect(robot.movements[:right].first[:south]).to eq :west
+          expect(robot.rotation[:left][:south]).to eq :east
+          expect(robot.rotation[:right][:south]).to eq :west
         end
       end
 
       context "right/left pointing :east" do
         it "move left/right when poiting in one direction" do
-          expect(robot.movements[:left].first[:east]).to eq :north
-          expect(robot.movements[:right].first[:east]).to eq :south
+          expect(robot.rotation[:left][:east]).to eq :north
+          expect(robot.rotation[:right][:east]).to eq :south
         end
       end
 
       context "right/left pointing :north" do
         it "move left/right when poiting in one direction" do
-          expect(robot.movements[:left].first[:north]).to eq :west
-          expect(robot.movements[:right].first[:north]).to eq :east
+          expect(robot.rotation[:left][:north]).to eq :west
+          expect(robot.rotation[:right][:north]).to eq :east
         end
       end
 
       context "right/left pointing :west" do
         it "move left/right when poiting in one direction" do
-          expect(robot.movements[:left].first[:west]).to eq :south
-          expect(robot.movements[:right].first[:west]).to eq :north
+          expect(robot.rotation[:left][:west]).to eq :south
+          expect(robot.rotation[:right][:west]).to eq :north
         end
       end
 
       context "right/left pointing :east" do
         it "move left/right when poiting in one direction" do
-          expect(robot.movements[:left].first[:east]).to eq :north
-          expect(robot.movements[:right].first[:east]).to eq :south
+          expect(robot.rotation[:left][:east]).to eq :north
+          expect(robot.rotation[:right][:east]).to eq :south
         end
       end
     end

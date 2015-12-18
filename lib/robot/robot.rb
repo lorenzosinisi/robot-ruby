@@ -24,26 +24,25 @@ module Roboruby
 
     # Command move
     def move(*)
-      new_value = movements[direction].first
+      new_value = step[direction]
       place(new_value[:x], new_value[:y])
     end
 
     # Command right
     def right(*)
-      new_direction = movements[:right].first[direction]
+      new_direction = rotation[:right][direction]
       place(current_x, current_y, new_direction)
     end
 
     # Command left
     def left(*)
-      new_direction = movements[:left].first[direction]
+      new_direction = rotation[:left][direction]
       place(current_x, current_y, new_direction)
     end
 
     # Command shake
     def shake(*)
-      new_position = movements[:shake].first
-      x,y,f = new_position[:x], new_position[:y], new_position[:direction]
+      x,y,f = random[:x], random[:y], random[:direction]
       place(x, y, f)
     end
 
@@ -58,70 +57,50 @@ module Roboruby
       (x >= board.origin and x <= board.x) and (y >= board.origin and y <= board.x)
     end
 
-    def movements
-      [
-        # MAPPING FOR COMMAND SHAKE
-        # Position the robot randomply in the board
-        :shake => [
-          :x => rand(board.origin..board.size),
-          :y => rand(board.origin..board.size),
-          :direction => DIRECTIONS.sample
-        ],
-
-        ## MAPPING FOR COMMAND MOVE
-        # Move one step in the current direction by accessing the actual direction:
-        :south => [ # Pointing direction
-          :x => current_x, # new x
-          :y => current_y - 1, # New y
-          :direction => direction # direction
-        ],
-        :north => [
-          :x => current_x,
-          :y => current_y + 1,
-          :direction => direction
-        ],
-        :east => [
-          :x => current_x + 1,
-          :y => current_y,
-          :direction => direction
-        ],
-        :west => [
-          :x => current_x - 1,
-          :y => current_y,
-          :direction => direction
-        ],
-        # TODO to enable also diagonal movements
-        #:southeast => [
-        #  :x => current_x + 1 ,
-        #  :y => current_y - 1,
-        #  :direction => direction
-        #]
-
-        ## MAPPING FOR COMMAND LEFT
-        # Rotate in direction:
-        :left => [
-          :south => :east,
-          :north => :west,
-          :east  => :north,
-          :west  => :south
-        ],
-        # TODO to enable also diagonal movements
-        #:left => [
-        #  :south     => :southwest,
-        #  :southwest => :west,
-        #  etc...
-        #]
-
-        ## MAPPING FOR COMMAND RIGHT
-        # Rotate in direction:
-        :right => [
+    def rotation
+      {
+        :right => {
           :south => :west,
           :north => :east,
           :east  => :south,
           :west  => :north
-        ]
+        },
+       :left => {
+          :south => :east,
+          :north => :west,
+          :east  => :north,
+          :west  => :south
+        }
+      }
+    end
 
-       ].first
+    def step
+      {
+        :south => {
+          :x => current_x,
+          :y => current_y - 1,
+        },
+        :north => {
+          :x => current_x,
+          :y => current_y + 1,
+        },
+        :east => {
+          :x => current_x + 1,
+          :y => current_y,
+        },
+        :west => {
+          :x => current_x - 1,
+          :y => current_y,
+        }
+      }
+    end
+
+    def random
+      { 
+        :x => rand(board.origin..board.size),
+        :y => rand(board.origin..board.size),
+        :direction => DIRECTIONS.sample
+      }
     end
 
   end
