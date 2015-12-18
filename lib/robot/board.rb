@@ -1,7 +1,8 @@
 module Roboruby
   class Board
-
-    attr_accessor :x, :y, :origin
+    ## Board
+    # should have axis x and y by default 4 and 4 that means being big 5x5
+    attr_reader :x, :y, :origin
 
     def initialize(options={})
       @x = options[:x] || 4
