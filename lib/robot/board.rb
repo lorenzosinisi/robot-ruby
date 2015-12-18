@@ -5,7 +5,7 @@ module Roboruby
     attr_reader :x, :y, :origin, :movements, :size
 
     def initialize(options={})
-      @size = 4
+      @size = options[:size] || 4
       @x = options[:x] || size
       @y = options[:y] || size
       @origin = options[:origin] || 0

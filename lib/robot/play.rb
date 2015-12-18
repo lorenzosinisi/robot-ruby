@@ -1,7 +1,7 @@
 module Roboruby
   class Play
     attr_accessor :robot, :command, :command_x, :command_y, :command_f
-    VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT PLACE)
+    VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT PLACE SHAKE)
     VALID_DIRECTIONS = %w(NORTH SOUTH EAST WEST)
 
     def initialize(options={})
@@ -26,14 +26,13 @@ module Roboruby
 
     def parse_command!(cmd)
       command = cmd.split
-      type, args = command[0], command[1]
+      args = command[1]
       extract_arguments!(args) if args
     end
 
     def extract_arguments!(args)
       args = args.split(",")
       x, y, f = args[0], args[1], args[2]
-
       if valid_coords?(x,y) and valid_direction?(f)
         self.command_x = x.to_i
         self.command_y = y.to_i

@@ -12,7 +12,8 @@ module Roboruby
       @direction = :north
     end
 
-    def place(x,y, value)
+    # Command place
+    def place(x,y, value = direction)
       if in_grid?(x,y)
         self.direction = value.downcase.to_sym
         self.current_x = x
@@ -21,31 +22,50 @@ module Roboruby
       end
     end
 
+    # Command move
     def move(*)
       new_value = movements[direction].first
-      self.place(new_value[:x], new_value[:y], new_value[:direction])
+      self.place(new_value[:x], new_value[:y])
     end
 
+    # Command right
     def right(*)
       self.direction = movements[:right].first[direction]
     end
 
+    # Command left
     def left(*)
       self.direction = movements[:left].first[direction]
     end
 
+    # Command shake
     def shake(*)
       new_value = movements[:shake].first
       self.place(new_value[:x], new_value[:y], new_value[:direction])
     end
 
+    # Command report
+    def report(*)
+      status = [current_x, current_y, direction.to_s.upcase]
+      puts status
+      status
+    end
+
+    def in_grid?(x = current_x, y = current_y)
+      (x >= board.origin and x <= board.x) and (y >= board.origin and y <= board.x)
+    end
+
     def movements
-      [ #:shake => [ # Pointing direction
-        #  :x => rand(board.origin..board.size), # new x
-        #  :y => rand(board.origin..board.size), # New y
-        #  :direction => direction # direction
-        #],
-        # Move when direction is:
+      [
+        # MAPPING FOR COMMAND SHAKE
+        :shake => [
+          :x => rand(board.origin..board.size),
+          :y => rand(board.origin..board.size),
+          :direction => DIRECTIONS.sample
+        ],
+
+        ## MAPPING FOR COMMAND MOVE
+        # Move one step when direction is:
         :south => [ # Pointing direction
           :x => current_x, # new x
           :y => current_y - 1, # New y
@@ -66,30 +86,26 @@ module Roboruby
           :y => current_y,
           :direction => direction
         ],
+
+        ## MAPPING FOR COMMAND LEFT
         # Rotate in direction:
         :left => [
           :south => :east,
           :north => :west,
-          :east => :north,
-          :west => :south
+          :east  => :north,
+          :west  => :south
         ],
+
+        ## MAPPING FOR COMMAND RIGHT
+        # Rotate in direction:
         :right => [
           :south => :west,
           :north => :east,
-          :east => :south,
-          :west => :north
+          :east  => :south,
+          :west  => :north
         ]
+
        ][0]
-    end
-
-    def report(*)
-      status = [current_x, current_y, direction.to_s.upcase]
-      puts status
-      status
-    end
-
-    def in_grid?(x = current_x, y = current_y)
-      (x >= board.origin and x <= board.x) and (y >= board.origin and y <= board.x)
     end
 
   end
