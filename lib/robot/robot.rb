@@ -12,7 +12,6 @@ module Roboruby
       @direction = :north
     end
 
-    # Command place
     def place(x,y, value = direction)
       if board.in_grid?(x,y)
         self.direction = value.downcase.to_sym
@@ -22,25 +21,21 @@ module Roboruby
       end
     end
 
-    # Command move
     def move(*)
       new_value = Map.pointing[direction]
       place(current_x + new_value[:x], current_y + new_value[:y])
     end
 
-    # Command right
     def right(*)
       new_direction = Map.rotate[:right][direction]
       place(current_x, current_y, new_direction)
     end
 
-    # Command left
     def left(*)
       new_direction = Map.rotate[:left][direction]
       place(current_x, current_y, new_direction)
     end
 
-    # Command report
     def report(*)
       status = [current_x, current_y, direction.to_s.upcase]
       puts status

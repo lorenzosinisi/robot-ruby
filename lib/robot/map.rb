@@ -1,7 +1,7 @@
 module Roboruby
   class Map
     class << self
-      # TODO move the following instruction in a static Yaml config file
+      # TODO move the following instruction in a static Yaml config file as they are static anyway
       def rotate
         {
           :right => {
