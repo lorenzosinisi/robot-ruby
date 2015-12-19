@@ -194,13 +194,13 @@ module Roboruby
     context "#is in the grid?" do
       it "should be in the grid by default" do
         new_robot = Roboruby::Robot.new
-        is_inside = new_robot.in_grid?
+        is_inside = new_robot.board.in_grid?(new_robot.current_x, new_robot.current_y)
         expect(is_inside).to eq(true)
       end
 
       it "should not be possibile to be outside of the grid, ignore the movement" do
         robot.place(rand(5..990),rand(5..990), %i(NORTH SOUTH EAST WEST).sample)
-        is_still_inside = robot.in_grid?
+        is_still_inside = robot.board.in_grid?(robot.current_x, robot.current_y)
         expect(is_still_inside).to eq(true)
       end
     end

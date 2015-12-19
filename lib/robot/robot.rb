@@ -14,7 +14,7 @@ module Roboruby
 
     # Command place
     def place(x,y, value = direction)
-      if in_grid?(x,y)
+      if board.in_grid?(x,y)
         self.direction = value.downcase.to_sym
         self.current_x = x
         self.current_y = y
@@ -51,10 +51,6 @@ module Roboruby
       status = [current_x, current_y, direction.to_s.upcase]
       puts status
       status
-    end
-
-    def in_grid?(x = current_x, y = current_y)
-      (x >= board.origin and x <= board.x) and (y >= board.origin and y <= board.x)
     end
 
     def rotation

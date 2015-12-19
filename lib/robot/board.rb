@@ -11,5 +11,9 @@ module Roboruby
       @origin = options[:origin] || 0
     end
 
+    def in_grid?(x, y)
+      (x >= origin and x <= size) and (y >= origin and y <= size)
+    end
+
   end
 end
