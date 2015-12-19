@@ -24,26 +24,20 @@ module Roboruby
 
     # Command move
     def move(*)
-      new_value = step[direction]
-      place(new_value[:x], new_value[:y])
+      new_value = Map.pointing[direction]
+      place(current_x + new_value[:x], current_y + new_value[:y])
     end
 
     # Command right
     def right(*)
-      new_direction = rotation[:right][direction]
+      new_direction = Map.rotate[:right][direction]
       place(current_x, current_y, new_direction)
     end
 
     # Command left
     def left(*)
-      new_direction = rotation[:left][direction]
+      new_direction = Map.rotate[:left][direction]
       place(current_x, current_y, new_direction)
-    end
-
-    # Command shake
-    def shake(*)
-      x,y,f = random[:x], random[:y], random[:direction]
-      place(x, y, f)
     end
 
     # Command report
@@ -51,52 +45,6 @@ module Roboruby
       status = [current_x, current_y, direction.to_s.upcase]
       puts status
       status
-    end
-
-    def rotation
-      {
-        :right => {
-          :south => :west,
-          :north => :east,
-          :east  => :south,
-          :west  => :north
-        },
-       :left => {
-          :south => :east,
-          :north => :west,
-          :east  => :north,
-          :west  => :south
-        }
-      }
-    end
-
-    def step
-      {
-        :south => {
-          :x => current_x,
-          :y => current_y - 1,
-        },
-        :north => {
-          :x => current_x,
-          :y => current_y + 1,
-        },
-        :east => {
-          :x => current_x + 1,
-          :y => current_y,
-        },
-        :west => {
-          :x => current_x - 1,
-          :y => current_y,
-        }
-      }
-    end
-
-    def random
-      { 
-        :x => rand(board.origin..board.size),
-        :y => rand(board.origin..board.size),
-        :direction => DIRECTIONS.sample
-      }
     end
 
   end

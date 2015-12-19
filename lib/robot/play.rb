@@ -1,7 +1,7 @@
 module Roboruby
   class Play
     attr_accessor :robot, :command, :command_x, :command_y, :command_f
-    VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT PLACE SHAKE)
+    VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT PLACE)
     VALID_DIRECTIONS = %w(NORTH SOUTH EAST WEST)
 
     def initialize(options={})
