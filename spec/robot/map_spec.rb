@@ -61,5 +61,22 @@ module Roboruby
       end
     end
 
+    context "#in_quadrant" do
+      it "should reduce to < 360 any grad above 360" do
+        expect(Map.in_quadrant(380)).to eq 20
+      end
+    end
+
+    context "#to_direction" do
+      it "should return the direction looking at what part of the grad are" do
+        expect(Map.grad_to_direction(0)).to eq :north
+        expect(Map.grad_to_direction(360)).to eq :north
+        expect(Map.grad_to_direction(rand(1..98))).to eq :northeast
+        expect(Map.grad_to_direction(90)).to eq :east
+        expect(Map.grad_to_direction(rand(91..179))).to eq :southeast
+        expect(Map.grad_to_direction(180)).to eq :south
+
+      end
+    end
   end
 end
