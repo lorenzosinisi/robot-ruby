@@ -3,7 +3,6 @@ module Roboruby
 
     attr_accessor :current_x, :current_y, :direction
     attr_reader :board
-    DIRECTIONS = [:north, :east, :south, :west]
 
     def initialize(options={})
       @board     = options[:board] || Roboruby::Board.new
