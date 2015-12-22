@@ -32,7 +32,7 @@ module Roboruby
     def extract_arguments!(args)
       args = args.split(",")
       x, y, f = args[0], args[1], args[2]
-      if valid_coords?(x,y, f)
+      if valid_coords?(x,y,f)
         self.command_x = Integer(x)
         self.command_y = Integer(y)
         self.command_f = Integer(f)
@@ -52,15 +52,10 @@ module Roboruby
       begin
         Integer(x)
         Integer(y)
-        valid_direction?(f)
+        Integer(f) >= 0 and Integer(f) <= 360
       rescue => e
         puts e; puts valid_commands; false
       end
-    end
-
-    def valid_direction?(dir)
-      dir = Integer(dir)
-      dir >= 0 and dir <= 360
     end
 
     def valid_commands

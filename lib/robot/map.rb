@@ -53,22 +53,24 @@ module Roboruby
       # Simply translate the coors into a human direction
       def grad_to_direction(grads)
         val = in_quadrant(grads)
-        if val == 0 or val == 360
+        if val == 0
           :north
         elsif val.between?(1, 89)
           :northeast
         elsif val == 90
           :east
-        elsif val.between?(89, 179)
+        elsif val.between?(91, 179)
           :southeast
         elsif val == 180
           :south
-        elsif val.between?(179, 269)
+        elsif val.between?(181, 269)
           :southwest
         elsif val == 270
           :west
-        elsif val.between?(269, 359)
+        elsif val.between?(271, 359)
           :northwest
+        elsif val == 360
+          :north
         else
           raise "Something here is going wrong, please have a look at the value: #{val}"
         end
