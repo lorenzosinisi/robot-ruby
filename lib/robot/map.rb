@@ -1,7 +1,7 @@
 module Roboruby
   class Map
     class << self
-      # TODO move the following instruction in a static Yaml config file as they are static anyway
+      # add or remove 90 deg depending on the rotation
       def rotate
         {
           :right => +90,
@@ -9,6 +9,10 @@ module Roboruby
         }
       end
 
+      # depending on the position that the robot is facing, add or remove a value from x and y
+      # 0  > means nothing to do
+      # 1  > means add 1
+      # -1 > means remove 1
       def pointing
         {
           :south => {
