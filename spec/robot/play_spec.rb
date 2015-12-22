@@ -151,7 +151,7 @@ module Roboruby
         play.get_move('LEFT')
         play.get_move('MOVE')
         expect(play.robot.report).to eq [4, 1, "NORTHEAST"]
-        #Output: 3,3,NORTH
+        #Output: 4,1,NORTH
       end
       it "example f)" do
         play.get_move('PLACE 3,3,190')
@@ -160,7 +160,7 @@ module Roboruby
         play.get_move('LEFT')
         play.get_move('MOVE')
         expect(play.robot.report).to eq [2, 0, "SOUTHEAST"]
-        #Output: 3,3,NORTH
+        #Output: 2,0,NORTH
       end
     end
   end
