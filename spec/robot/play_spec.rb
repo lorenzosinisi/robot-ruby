@@ -135,6 +135,33 @@ module Roboruby
         expect(play.robot.report).to eq [3, 3, "NORTH"]
         #Output: 3,3,NORTH
       end
+      it "example d)" do
+        play.get_move('PLACE 2,2,45')
+        play.get_move('MOVE')
+        play.get_move('MOVE')
+        play.get_move('LEFT')
+        play.get_move('MOVE')
+        expect(play.robot.report).to eq [4, 4, "NORTHWEST"]
+        #Output: 4,4,NORTHWEST
+      end
+      it "example e)" do
+        play.get_move('PLACE 1,2,100')
+        play.get_move('MOVE')
+        play.get_move('MOVE')
+        play.get_move('LEFT')
+        play.get_move('MOVE')
+        expect(play.robot.report).to eq [4, 1, "NORTHEAST"]
+        #Output: 3,3,NORTH
+      end
+      it "example f)" do
+        play.get_move('PLACE 3,3,190')
+        play.get_move('MOVE')
+        play.get_move('MOVE')
+        play.get_move('LEFT')
+        play.get_move('MOVE')
+        expect(play.robot.report).to eq [2, 0, "SOUTHEAST"]
+        #Output: 3,3,NORTH
+      end
     end
   end
 end

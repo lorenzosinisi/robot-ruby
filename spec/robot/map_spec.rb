@@ -43,7 +43,7 @@ module Roboruby
       it "should return the direction looking at what part of the grad are" do
         expect(Map.grad_to_direction(0)).to eq :north
         expect(Map.grad_to_direction(360)).to eq :north
-        expect(Map.grad_to_direction(rand(1..98))).to eq :northeast
+        expect(Map.grad_to_direction(rand(1..89))).to eq :northeast
         expect(Map.grad_to_direction(90)).to eq :east
         expect(Map.grad_to_direction(rand(91..179))).to eq :southeast
         expect(Map.grad_to_direction(180)).to eq :south
