@@ -50,7 +50,7 @@ module Roboruby
         elsif val > 270 and val < 360
           :northwest
         else
-          raise "Something here is going wrong"
+          raise "Something here is going wrong, please have a look at the value: #{val}"
         end
       end
 
@@ -60,6 +60,10 @@ module Roboruby
       def in_quadrant(grads)
         if grads > 360
           grads -= 360
+          return in_quadrant(grads)
+        elsif
+          grads < 0
+          grads += 360
           return in_quadrant(grads)
         end
         grads

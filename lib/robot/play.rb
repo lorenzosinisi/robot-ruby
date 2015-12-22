@@ -2,12 +2,11 @@ module Roboruby
   class Play
     attr_accessor :robot, :command, :command_x, :command_y, :command_f
     VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT PLACE)
-    VALID_DIRECTIONS = %w(NORTH SOUTH EAST WEST)
 
     def initialize(options={})
       board =  options[:board] || Roboruby::Board.new
       @robot = options[:robot] || Roboruby::Robot.new({board: board})
-      @command_x, @command_y, @command_f = 0, 0, "NORTH"
+      @command_x, @command_y, @command_f = 0, 0, 0
     end
 
     def start
@@ -33,10 +32,10 @@ module Roboruby
     def extract_arguments!(args)
       args = args.split(",")
       x, y, f = args[0], args[1], args[2]
-      if valid_coords?(x,y) and valid_direction?(f)
-        self.command_x = x.to_i
-        self.command_y = y.to_i
-        self.command_f = f
+      if valid_coords?(x,y, f)
+        self.command_x = Integer(x)
+        self.command_y = Integer(y)
+        self.command_f = Integer(f)
       end
     end
 
@@ -49,17 +48,19 @@ module Roboruby
       end
     end
 
-    def valid_coords?(x,y)
+    def valid_coords?(x,y,f)
       begin
-        Integer(x) and Integer(y)
+        Integer(x)
+        Integer(y)
+        valid_direction?(f)
       rescue => e
         puts e; puts valid_commands; false
       end
     end
 
     def valid_direction?(dir)
-      return true if VALID_DIRECTIONS.include?(dir)
-      puts "Not a valid direction: '#{dir}'. Valid directions #{VALID_DIRECTIONS}"
+      dir = Integer(dir)
+      dir >= 0 and dir <= 360
     end
 
     def valid_commands

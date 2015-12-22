@@ -25,38 +25,10 @@ module Roboruby
         end
       end
 
-      context "right/left pointing :south" do
+      context "right/left" do
         it "move left/right when poiting in one direction" do
-          expect(Map.rotate[:left][:south]).to eq :east
-          expect(Map.rotate[:right][:south]).to eq :west
-        end
-      end
-
-      context "right/left pointing :east" do
-        it "move left/right when poiting in one direction" do
-          expect(Map.rotate[:left][:east]).to eq :north
-          expect(Map.rotate[:right][:east]).to eq :south
-        end
-      end
-
-      context "right/left pointing :north" do
-        it "move left/right when poiting in one direction" do
-          expect(Map.rotate[:left][:north]).to eq :west
-          expect(Map.rotate[:right][:north]).to eq :east
-        end
-      end
-
-      context "right/left pointing :west" do
-        it "move left/right when poiting in one direction" do
-          expect(Map.rotate[:left][:west]).to eq :south
-          expect(Map.rotate[:right][:west]).to eq :north
-        end
-      end
-
-      context "right/left pointing :east" do
-        it "move left/right when poiting in one direction" do
-          expect(Map.rotate[:left][:east]).to eq :north
-          expect(Map.rotate[:right][:east]).to eq :south
+          expect(Map.rotate[:left]).to eq -90
+          expect(Map.rotate[:right]).to eq 90
         end
       end
     end

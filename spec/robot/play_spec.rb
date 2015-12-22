@@ -28,12 +28,12 @@ module Roboruby
 
       it "converts human_move of 'RIGHT'  to right" do
         play.get_move('RIGHT')
-        expect(play.robot.direction).to eq :east
+        expect(play.robot.human_direction).to eq 'EAST'
       end
 
       it "converts human_move of 'LEFT'  to left" do
         play.get_move('LEFT')
-        expect(play.robot.direction).to eq :west
+        expect(play.robot.human_direction).to eq 'WEST'
       end
 
       it "converts human_move of 'REPORT' to report" do
@@ -41,17 +41,17 @@ module Roboruby
       end
 
       it "converts human_move of 'PLACE X,Y,F' to place(x,y,f)" do
-        play.get_move('PLACE 2,3,NORTH')
-        expect(play.robot.direction).to eq :north
+        play.get_move('PLACE 2,3,0')
+        expect(play.robot.human_direction).to eq 'NORTH'
       end
 
       it "converts human_move of 'PLACE X,Y,F' to place(x,y,f)" do
-        play.get_move('PLACE 2,3,NORTH')
-        expect(play.robot.direction).to eq :north
+        play.get_move('PLACE 2,3,0')
+        expect(play.robot.human_direction).to eq 'NORTH'
       end
 
       it "converts MOVE to move" do
-        play.get_move('PLACE 0,0,NORTH')
+        play.get_move('PLACE 0,0,0')
         play.get_move('MOVE')
         expect(play.robot.report).to eq [0, 1, "NORTH"]
         #Output: 0,1,NORTH
@@ -68,31 +68,31 @@ module Roboruby
 
     context "#parse command" do
       it "should set the command type if valid" do
-        play.parse_command!('PLACE 2,3,NORTH')
+        play.parse_command!('PLACE 2,3,0')
         expect(play.command_x).to eq 2
         expect(play.command_y).to eq 3
-        expect(play.command_f).to eq "NORTH"
+        expect(play.command_f).to eq 0
       end
 
       it "should set the command type to nil if not valid" do
-        play.parse_command!('PLACID 2,3,NORTH')
+        play.parse_command!('PLACID 2,3,0')
         expect(play.command).to eq nil
       end
     end
 
     context "#extract arguments" do
       it "should extract the arguments from the command and assign them" do
-        play.extract_arguments!('2,3,NORTH')
+        play.extract_arguments!('2,3,0')
         expect(play.command_x).to eq 2
         expect(play.command_y).to eq 3
-        expect(play.command_f).to eq "NORTH"
+        expect(play.command_f).to eq 0
       end
     end
 
     context "#is a valid command? with valid commands" do
 
       it "should return true for 'PLACE x,y,f'" do
-        valid = play.is_valid_command?("PLACE 1,2,NORTH")
+        valid = play.is_valid_command?("PLACE 1,2,0")
         expect(valid).to be true
       end
 
@@ -115,19 +115,19 @@ module Roboruby
 
     context "Do the demo set of commands from Specs" do
       it "example a)" do
-        play.get_move('PLACE 0,0,NORTH')
+        play.get_move('PLACE 0,0,0')
         play.get_move('MOVE')
         expect(play.robot.report).to eq [0, 1, "NORTH"]
         #Output: 0,1,NORTH
       end
       it "example b)" do
-        play.get_move('PLACE 0,0,NORTH')
+        play.get_move('PLACE 0,0,0')
         play.get_move('LEFT')
         expect(play.robot.report).to eq [0, 0, "WEST"]
         #Output: 0,0,WEST
       end
       it "example c)" do
-        play.get_move('PLACE 1,2,EAST')
+        play.get_move('PLACE 1,2,90')
         play.get_move('MOVE')
         play.get_move('MOVE')
         play.get_move('LEFT')
