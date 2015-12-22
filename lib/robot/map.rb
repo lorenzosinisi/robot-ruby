@@ -15,8 +15,16 @@ module Roboruby
             :x => 0,
             :y => -1,
           },
+          :southeast => {
+            :x => 1,
+            :y => -1,
+          },
           :north => {
             :x => 0,
+            :y => 1,
+          },
+          :northeast => {
+            :x => 1,
             :y => 1,
           },
           :east => {
@@ -26,6 +34,14 @@ module Roboruby
           :west => {
             :x => -1,
             :y => 0,
+          },
+          :southwest => {
+            :x => -1,
+            :y => -1,
+          },
+          :northwest => {
+            :x => -1,
+            :y => 1,
           }
         }
       end
@@ -35,19 +51,19 @@ module Roboruby
         val = in_quadrant(grads)
         if val == 0 or val == 360
           :north
-        elsif val > 0 and val < 90
+        elsif val.between?(1, 89)
           :northeast
         elsif val == 90
           :east
-        elsif val > 90 and val < 180
+        elsif val.between?(89, 179)
           :southeast
         elsif val == 180
           :south
-        elsif val > 180 and val < 270
+        elsif val.between?(179, 269)
           :southwest
         elsif val == 270
           :west
-        elsif val > 270 and val < 360
+        elsif val.between?(269, 359)
           :northwest
         else
           raise "Something here is going wrong, please have a look at the value: #{val}"
