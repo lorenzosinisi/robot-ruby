@@ -68,7 +68,7 @@ module Roboruby
 
     context "#parse command" do
       it "should set the command type if valid" do
-        play.parse_command!('PLACE 2,3,0')
+        play.parse_command!('PLACE 2,3,NORTH')
         expect(play.command_x).to eq 2
         expect(play.command_y).to eq 3
         expect(play.command_f).to eq 0
@@ -82,7 +82,7 @@ module Roboruby
 
     context "#extract arguments" do
       it "should extract the arguments from the command and assign them" do
-        play.extract_arguments!('2,3,0')
+        play.extract_arguments!('2,3,NORTH')
         expect(play.command_x).to eq 2
         expect(play.command_y).to eq 3
         expect(play.command_f).to eq 0
@@ -92,7 +92,7 @@ module Roboruby
     context "#is a valid command? with valid commands" do
 
       it "should return true for 'PLACE x,y,f'" do
-        valid = play.is_valid_command?("PLACE 1,2,0")
+        valid = play.is_valid_command?("PLACE 1,2,NORTH")
         expect(valid).to be true
       end
 
@@ -115,19 +115,19 @@ module Roboruby
 
     context "Do the demo set of commands from Specs" do
       it "example a)" do
-        play.get_move('PLACE 0,0,0')
+        play.get_move('PLACE 0,0,NORTH')
         play.get_move('MOVE')
         expect(play.robot.report).to eq [0, 1, "NORTH"]
         #Output: 0,1,NORTH
       end
       it "example b)" do
-        play.get_move('PLACE 0,0,0')
+        play.get_move('PLACE 0,0,NORTH')
         play.get_move('LEFT')
         expect(play.robot.report).to eq [0, 0, "WEST"]
         #Output: 0,0,WEST
       end
       it "example c)" do
-        play.get_move('PLACE 1,2,90')
+        play.get_move('PLACE 1,2,EAST')
         play.get_move('MOVE')
         play.get_move('MOVE')
         play.get_move('LEFT')
@@ -136,7 +136,7 @@ module Roboruby
         #Output: 3,3,NORTH
       end
       it "example d)" do
-        play.get_move('PLACE 2,2,45')
+        play.get_move('PLACE 2,2,NORTHEAST')
         play.get_move('MOVE')
         play.get_move('MOVE')
         play.get_move('LEFT')
@@ -145,7 +145,7 @@ module Roboruby
         #Output: 4,4,NORTHWEST
       end
       it "example e)" do
-        play.get_move('PLACE 1,2,100')
+        play.get_move('PLACE 1,2,SOUTHEAST')
         play.get_move('MOVE')
         play.get_move('MOVE')
         play.get_move('LEFT')
@@ -154,7 +154,7 @@ module Roboruby
         #Output: 4,1,NORTH
       end
       it "example f)" do
-        play.get_move('PLACE 3,3,190')
+        play.get_move('PLACE 3,3,SOUTHWEST')
         play.get_move('MOVE')
         play.get_move('MOVE')
         play.get_move('LEFT')

@@ -76,6 +76,30 @@ module Roboruby
         end
       end
 
+      # Simply translate the direction into grads
+      def direction_to_grads(direction)
+        case direction.downcase.to_sym
+        when :north
+          0
+        when :northeast
+          45
+        when :east
+          90
+        when :southeast
+          135
+        when :south
+          180
+        when :southwest
+          225
+        when :west
+          270
+        when :northwest
+          315
+        else
+          0
+        end
+      end
+
       # try to reduce the grads to a number between 0 and 360
       # this may break when a robot does a really really big number of cycles around the axis
       # be careful
