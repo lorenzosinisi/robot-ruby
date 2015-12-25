@@ -49,7 +49,10 @@ module Roboruby
 
     context "#in_quadrant" do
       it "should reduce to < 360 any grad above 360" do
-        expect(Map.in_quadrant(380)).to eq 20
+        expect(Map.to_quadrant(380)).to eq 20
+      end
+      it "should return nil when the operation can't be done" do
+        expect(Map.to_quadrant("can't convert a string into deg")).to eq nil
       end
     end
 

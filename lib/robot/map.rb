@@ -52,31 +52,31 @@ module Roboruby
 
       # Simply translate the coors into a human direction
       def grad_to_direction(grads)
-        val = in_quadrant(grads)
-        if val == 0
+        angle = to_quadrant(grads)
+        if angle == 0
           :north
-        elsif val.between?(1, 89)
+        elsif angle.between?(1, 89)
           :northeast
-        elsif val == 90
+        elsif angle == 90
           :east
-        elsif val.between?(91, 179)
+        elsif angle.between?(91, 179)
           :southeast
-        elsif val == 180
+        elsif angle == 180
           :south
-        elsif val.between?(181, 269)
+        elsif angle.between?(181, 269)
           :southwest
-        elsif val == 270
+        elsif angle == 270
           :west
-        elsif val.between?(271, 359)
+        elsif angle.between?(271, 359)
           :northwest
-        elsif val == 360
+        elsif angle == 360
           :north
         else
-          raise "Something here is going wrong, please have a look at the value: #{val}"
+          raise "Something here is going wrong, please have a look at the value: #{angle}"
         end
       end
 
-      # Simply translate the direction into grads
+      # Translate the direction into grads
       def direction_to_grads(direction)
         case direction.downcase.to_sym
         when :north
@@ -100,19 +100,15 @@ module Roboruby
         end
       end
 
-      # try to reduce the grads to a number between 0 and 360
-      # this may break when a robot does a really really big number of cycles around the axis
-      # be careful
-      def in_quadrant(grads)
-        if grads > 360
-          grads -= 360
-          return in_quadrant(grads)
-        elsif
-          grads < 0
-          grads += 360
-          return in_quadrant(grads)
+      # Translate an Integer into an angle in a 360° quadrant
+      def to_quadrant(grads)
+        begin
+          number = Integer(grads) % 360
+          number = number.abs
+          number
+        rescue
+          nil
         end
-        grads
       end
 
     end
