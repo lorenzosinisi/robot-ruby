@@ -13,9 +13,9 @@ module Roboruby
       @valid_points = valid_coords
     end
 
-    def in_grid?(x, y)
+    def in_grid?(x, y, resource = false)
       begin
-        valid_points[x][y] == [x,y]
+        valid_points[x][y] == [x,y, resource]
       rescue
       end
     end
@@ -23,7 +23,7 @@ module Roboruby
     def valid_coords
       Array.new(size + 1) { |x|
         Array.new(size + 1) { |y|
-          [x,y]
+          [x,y, false]
         }.freeze
       }.freeze
     end
