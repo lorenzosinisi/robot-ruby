@@ -2,8 +2,8 @@ module Roboruby
   class Play
     attr_accessor :command, :command_x, :command_y, :command_f
     attr_reader :robot, :name
-    VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT PLACE)
-    VALID_DIRECTIONS = %w(NORTH SOUTH WEST EAST NORTHEAST NORTHWEST SOUTHWEST SOUTHEAST)
+    VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT PLACE).freeze
+    VALID_DIRECTIONS = %w(NORTH SOUTH WEST EAST NORTHEAST NORTHWEST SOUTHWEST SOUTHEAST).freeze
 
     def initialize(options={})
       board =  options[:board] || Roboruby::Board.new
