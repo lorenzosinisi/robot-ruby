@@ -1,7 +1,7 @@
 module Roboruby
   class Play
     attr_accessor :command, :command_x, :command_y, :command_f
-    attr_reader :robot
+    attr_reader :robot, :name
     VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT PLACE)
     VALID_DIRECTIONS = %w(NORTH SOUTH WEST EAST NORTHEAST NORTHWEST SOUTHWEST SOUTHEAST)
 
@@ -9,6 +9,7 @@ module Roboruby
       board =  options[:board] || Roboruby::Board.new
       @robot = options[:robot] || Roboruby::Robot.new({board: board})
       @command_x, @command_y, @command_f = 0, 0, 0
+      @name = options[:name] || self.object_id
     end
 
     def start
@@ -67,6 +68,10 @@ module Roboruby
 
     def solicit_new_command
       puts "\n\n\n => Type a new command:"
+    end
+
+    def its_your_time
+     puts "It's your time #{name}! Select your move:"
     end
 
   end
