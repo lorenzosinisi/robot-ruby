@@ -1,15 +1,16 @@
 module Roboruby
   class Map
     class << self
-      # add or remove 90 deg depending on the rotation
+      
+      # Ddd or remove 90 deg depending on the rotation
       def rotate
         {
           :right => +90,
           :left => -90,
-        }
+        }.freeze
       end
 
-      # depending on the position that the robot is facing, add or remove a value from x and y
+      # Depending on the position that the robot is facing, add or remove a value from x and y
       # 0  > means nothing to do
       # 1  > means add 1
       # -1 > means remove 1
@@ -47,10 +48,10 @@ module Roboruby
             :x => -1,
             :y => 1,
           }
-        }
+        }.freeze
       end
 
-      # Simply translate the coors into a human direction
+      # Translate the coors into a human direction
       def grad_to_direction(grads)
         angle = to_quadrant(grads)
         if angle == 0

@@ -37,12 +37,22 @@ module Roboruby
             expect(Map.pointing[:northwest]).to eq ({:x=>-1, :y=>1})
           end
         end
+        context "if trying to modify the hash" do
+          it "should raise error" do
+            expect{Map.pointing[:ciao] = "ciao"}.to raise_error(RuntimeError, "can't modify frozen Hash")
+          end
+        end
       end
 
       context "right/left" do
         it "move left/right when poiting in one direction" do
           expect(Map.rotate[:left]).to eq(-90)
           expect(Map.rotate[:right]).to eq(90)
+        end
+        context "if trying to modify the hash" do
+          it "should raise error" do
+            expect{Map.rotate[:polos_lollipop] = "polos_lollipop"}.to raise_error(RuntimeError, "can't modify frozen Hash")
+          end
         end
       end
     end
