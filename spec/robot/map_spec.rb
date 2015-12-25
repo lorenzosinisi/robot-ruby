@@ -54,6 +54,9 @@ module Roboruby
       it "should return nil when the operation can't be done" do
         expect(Map.to_quadrant("can't convert a string into deg")).to eq nil
       end
+      it "should support also Bignum" do 
+        expect(Map.to_quadrant(1000000000000000000000000 * 1000000000000000000000000)).to eq 280
+      end
     end
 
     context "#to_direction" do
