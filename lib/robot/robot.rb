@@ -6,9 +6,9 @@ module Roboruby
 
     def initialize(options={})
       @board     = options[:board] || Roboruby::Board.new
-      @current_x = board.origin
-      @current_y = board.origin
-      @direction = 0
+      @current_x = 0
+      @current_y = 0
+      @direction = 0 # deg
     end
 
     def place(x,y, value = direction)

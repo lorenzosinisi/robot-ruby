@@ -45,7 +45,7 @@ module Roboruby
       end
 
       it "returns nil if trying to use the command place with invalid coords" do
-        expect(robot.place(345345,44, "right")).to be(nil)
+        expect(robot.place(345345,44, "right")).to be nil
       end
 
     end
@@ -145,9 +145,11 @@ module Roboruby
       end
 
       it "should not be possibile to be outside of the grid, ignore the movement" do
-        robot.place(rand(5..990),rand(5..990), %i(NORTH SOUTH EAST WEST).sample)
-        is_still_inside = robot.board.in_grid?(robot.current_x, robot.current_y)
-        expect(is_still_inside).to eq(true)
+        1000.times do
+          expect(
+            robot.place(rand(5..990),rand(5..990), %i(NORTH SOUTH EAST WEST SOUTHWEST SOUTHEAST NORTHWEST NORTHEAST).sample)
+          ).to be nil
+        end
       end
     end
 
