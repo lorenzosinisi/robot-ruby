@@ -1,13 +1,14 @@
 module Roboruby
   class Play
-    attr_accessor :robot, :command, :command_x, :command_y, :command_f
+    attr_accessor :command, :command_x, :command_y, :command_f
+    attr_reader :robot
     VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT PLACE)
-    VALID_DIRECTIONS = %w(NORTH SOUTH EAST WEST)
+    VALID_DIRECTIONS = %w(NORTH SOUTH WEST EAST NORTHEAST NORTHWEST SOUTHWEST SOUTHEAST)
 
     def initialize(options={})
       board =  options[:board] || Roboruby::Board.new
       @robot = options[:robot] || Roboruby::Robot.new({board: board})
-      @command_x, @command_y, @command_f = 0, 0, "NORTH"
+      @command_x, @command_y, @command_f = 0, 0, 0
     end
 
     def start
@@ -33,10 +34,11 @@ module Roboruby
     def extract_arguments!(args)
       args = args.split(",")
       x, y, f = args[0], args[1], args[2]
+      direction = Map.direction_to_grads(f)
       if valid_coords?(x,y) and valid_direction?(f)
-        self.command_x = x.to_i
-        self.command_y = y.to_i
-        self.command_f = f
+        self.command_x = Integer(x)
+        self.command_y = Integer(y)
+        self.command_f = direction
       end
     end
 
@@ -45,25 +47,22 @@ module Roboruby
       if VALID_COMMANDS.include?(type)
         self.command = type.downcase.to_sym; true
       else
-         puts "Not a valid command #{type}. #{valid_commands}"
+         puts "Not a valid command #{type}. Valid commands #{VALID_COMMANDS}"
       end
     end
 
     def valid_coords?(x,y)
       begin
-        Integer(x) and Integer(y)
+        Integer(x)
+        Integer(y)
       rescue => e
         puts e; puts valid_commands; false
       end
     end
 
-    def valid_direction?(dir)
-      return true if VALID_DIRECTIONS.include?(dir)
-      puts "Not a valid direction: '#{dir}'. Valid directions #{VALID_DIRECTIONS}"
-    end
-
-    def valid_commands
-      "Valid commands: #{VALID_COMMANDS}"
+    def valid_direction?(direction)
+      return true if VALID_DIRECTIONS.include?(direction)
+      puts "Sorry, are valid directions only: #{VALID_DIRECTIONS}"
     end
 
     def solicit_new_command

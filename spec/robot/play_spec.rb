@@ -28,12 +28,12 @@ module Roboruby
 
       it "converts human_move of 'RIGHT'  to right" do
         play.get_move('RIGHT')
-        expect(play.robot.direction).to eq :east
+        expect(play.robot.human_direction).to eq 'EAST'
       end
 
       it "converts human_move of 'LEFT'  to left" do
         play.get_move('LEFT')
-        expect(play.robot.direction).to eq :west
+        expect(play.robot.human_direction).to eq 'WEST'
       end
 
       it "converts human_move of 'REPORT' to report" do
@@ -41,17 +41,17 @@ module Roboruby
       end
 
       it "converts human_move of 'PLACE X,Y,F' to place(x,y,f)" do
-        play.get_move('PLACE 2,3,NORTH')
-        expect(play.robot.direction).to eq :north
+        play.get_move('PLACE 2,3,0')
+        expect(play.robot.human_direction).to eq 'NORTH'
       end
 
       it "converts human_move of 'PLACE X,Y,F' to place(x,y,f)" do
-        play.get_move('PLACE 2,3,NORTH')
-        expect(play.robot.direction).to eq :north
+        play.get_move('PLACE 2,3,0')
+        expect(play.robot.human_direction).to eq 'NORTH'
       end
 
       it "converts MOVE to move" do
-        play.get_move('PLACE 0,0,NORTH')
+        play.get_move('PLACE 0,0,0')
         play.get_move('MOVE')
         expect(play.robot.report).to eq [0, 1, "NORTH"]
         #Output: 0,1,NORTH
@@ -71,11 +71,11 @@ module Roboruby
         play.parse_command!('PLACE 2,3,NORTH')
         expect(play.command_x).to eq 2
         expect(play.command_y).to eq 3
-        expect(play.command_f).to eq "NORTH"
+        expect(play.command_f).to eq 0
       end
 
       it "should set the command type to nil if not valid" do
-        play.parse_command!('PLACID 2,3,NORTH')
+        play.parse_command!('PLACID 2,3,0')
         expect(play.command).to eq nil
       end
     end
@@ -85,7 +85,7 @@ module Roboruby
         play.extract_arguments!('2,3,NORTH')
         expect(play.command_x).to eq 2
         expect(play.command_y).to eq 3
-        expect(play.command_f).to eq "NORTH"
+        expect(play.command_f).to eq 0
       end
     end
 
@@ -134,6 +134,33 @@ module Roboruby
         play.get_move('MOVE')
         expect(play.robot.report).to eq [3, 3, "NORTH"]
         #Output: 3,3,NORTH
+      end
+      it "example d)" do
+        play.get_move('PLACE 2,2,NORTHEAST')
+        play.get_move('MOVE')
+        play.get_move('MOVE')
+        play.get_move('LEFT')
+        play.get_move('MOVE')
+        expect(play.robot.report).to eq [4, 4, "NORTHWEST"]
+        #Output: 4,4,NORTHWEST
+      end
+      it "example e)" do
+        play.get_move('PLACE 1,2,SOUTHEAST')
+        play.get_move('MOVE')
+        play.get_move('MOVE')
+        play.get_move('LEFT')
+        play.get_move('MOVE')
+        expect(play.robot.report).to eq [4, 1, "NORTHEAST"]
+        #Output: 4,1,NORTH
+      end
+      it "example f)" do
+        play.get_move('PLACE 3,3,SOUTHWEST')
+        play.get_move('MOVE')
+        play.get_move('MOVE')
+        play.get_move('LEFT')
+        play.get_move('MOVE')
+        expect(play.robot.report).to eq [2, 0, "SOUTHEAST"]
+        #Output: 2,0,NORTH
       end
     end
   end

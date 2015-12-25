@@ -17,7 +17,7 @@ module Roboruby
       end
 
       it "is expected to be itialized with the position 0x0 by default" do
-        expect(robot.direction).to eq :north
+        expect(robot.human_direction).to eq "NORTH"
       end
 
       it "is expected to be itialized a default board" do
@@ -40,7 +40,7 @@ module Roboruby
       end
 
       it "should set the new position of the robot" do
-        robot.place(2,2, "north")
+        robot.place(2,2, 0)
         expect(robot.report).to eq [2, 2, "NORTH"]
       end
 
@@ -74,28 +74,28 @@ module Roboruby
     context "#move right" do
       it "should rotate the robot 90 degrees in the specified direction without changing the position" do
         robot.right
-        expect(robot.direction).to be(:east)
+        expect(robot.human_direction).to eq("EAST")
       end
     end
     # TODO don't hardcore the output but read it directly from the map
     context "#move left" do
       it "should rotate the robot 90 degrees in the specified direction without changing the position" do
         robot.left
-        expect(robot.direction).to be(:west)
+        expect(robot.human_direction).to eq("WEST")
       end
-      
+
       it "should rotate the robot 360 degrees in the specified direction without changing the position" do
         4.times do
           robot.left
         end
-        expect(robot.direction).to be(:north)
+        expect(robot.human_direction).to eq("NORTH")
       end
 
       it "should rotate the robot 360 degrees 100 times" do
         400.times do
           robot.left
         end
-        expect(robot.direction).to be(:north)
+        expect(robot.human_direction).to eq("NORTH")
       end
 
       it "should rotate the robot 360 degrees 100 times and one to the right" do
@@ -103,25 +103,25 @@ module Roboruby
           robot.left
         end
         robot.right
-        expect(robot.direction).to be(:east)
+        expect(robot.human_direction).to eq("EAST")
       end
     end
 
     context "#move" do
-      
+
       it "should return true" do
-        robot.place(0,0, :north)
+        robot.place(0,0, 0)
         expect(robot.move).to eq(true)
       end
 
       it "should move the robot one position further in the direction it is now" do
-        robot.place(0,0, :north)
+        robot.place(0,0, 0)
         robot.move
         expect(robot.report).to eq [0, 1, "NORTH"]
       end
 
       it "should not move the robot if the movement make it fall from the table" do
-        robot.place(0,0, :south)
+        robot.place(0,0, 180)
         expect(robot.move).to eq(nil)
       end
     end
@@ -130,9 +130,10 @@ module Roboruby
       it "should show the position of the robot" do
         x = rand(0..4)
         y = rand(0..4)
-        f = %i(NORTH SOUTH EAST WEST).sample
-        robot.place(x,y, f)
-        expect(robot.report).to eq [x, y, f.to_s.upcase]
+        f = rand(0..360)
+        dir = Map.grad_to_direction(f)
+        robot.place(x, y, f)
+        expect(robot.report).to eq [x, y, dir.upcase.to_s]
       end
     end
 
