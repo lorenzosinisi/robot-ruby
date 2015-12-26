@@ -77,7 +77,14 @@ module Roboruby
         expect(Map.grad_to_direction(90)).to eq :east
         expect(Map.grad_to_direction(rand(91..179))).to eq :southeast
         expect(Map.grad_to_direction(180)).to eq :south
-
+      end
+      context "negative numbers" do
+        it "should return the right direction anyway" do
+          expect(Map.grad_to_direction(-90)).to eq :west
+          expect(Map.grad_to_direction(rand(-89..-1))).to eq :northwest
+          expect(Map.grad_to_direction(-100)).to eq :southwest
+          expect(Map.grad_to_direction(-360)).to eq :north
+        end
       end
     end
   end
