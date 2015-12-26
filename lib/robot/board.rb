@@ -13,6 +13,8 @@ module Roboruby
       @valid_points = valid_coords
     end
 
+    # Call this method to check if the coords are valid or not
+    # resource indicate the presence of an object in the cell, false means free
     def in_grid?(x, y, resource = false)
       begin
         valid_points[x][y] == [x,y, resource]
@@ -20,6 +22,8 @@ module Roboruby
       end
     end
 
+    # Generate a square of 5x5, each point contains an array like [x,y and false] by default to mark the cell
+    # as valid and free (false)
     def valid_coords
       Array.new(size + 1) { |x|
         Array.new(size + 1) { |y|
