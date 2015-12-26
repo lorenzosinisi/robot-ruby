@@ -1,7 +1,7 @@
 module Roboruby
   class Map
     class << self
-      
+
       # Ddd or remove 90 deg depending on the rotation
       def rotate
         {

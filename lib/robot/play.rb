@@ -12,13 +12,6 @@ module Roboruby
       @name = options[:name] || self.object_id
     end
 
-    def start
-      loop do
-        solicit_new_command
-        get_move(gets.chomp)
-      end
-    end
-
     def get_move(cmd)
       if is_valid_command?(cmd)
         parse_command!(cmd)
@@ -64,14 +57,6 @@ module Roboruby
     def valid_direction?(direction)
       return true if VALID_DIRECTIONS.include?(direction)
       puts "Sorry, are valid directions only: #{VALID_DIRECTIONS}"
-    end
-
-    def solicit_new_command
-      puts "\n\n\n => Type a new command:"
-    end
-
-    def its_your_time
-     puts "It's your time #{name}! Select your move:"
     end
 
   end

@@ -13,6 +13,9 @@ puts "great #{second_player_name} :D welcome you too!"
 first  = Roboruby::Play.new({name: first_player_name})
 second = Roboruby::Play.new({name: second_player_name})
 
+puts "\n >> PLEASE USE THE VALID COMMANDS << \n\n"
+puts "\n ==> RIGHT, LEFT, MOVE, REPORT, PLACE \n\n"
+
 loop do
 
   puts "It's your time #{first.name}! Select your move:"
