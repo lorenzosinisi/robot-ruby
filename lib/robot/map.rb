@@ -104,11 +104,8 @@ module Roboruby
       # Translate an Integer into an angle in a 360° quadrant
       def to_quadrant(grads)
         begin
-          number = Integer(grads) % 360
-          number = number.abs
-          number
+          Integer(grads) % 360
         rescue
-          nil
         end
       end
 
