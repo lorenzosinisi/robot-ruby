@@ -1,8 +1,10 @@
 module Roboruby
   class Play
+    # why duplicated actuon
+    # type some commen
     attr_accessor :command, :command_x, :command_y, :command_f
     attr_reader :robot, :name
-    VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT PLACE).freeze
+    VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT PLACE).freeze # refactor this from 2 sources of truth method missing
     VALID_DIRECTIONS = %w(NORTH SOUTH WEST EAST NORTHEAST NORTHWEST SOUTHWEST SOUTHEAST).freeze
 
     def initialize(options={})
@@ -28,7 +30,7 @@ module Roboruby
     def extract_arguments!(args)
       args = args.split(",")
       x, y, f = args[0], args[1], args[2]
-      direction = Map.direction_to_grads(f)
+      direction = Compass.direction_to_grads(f)
       if valid_coords?(x,y) and valid_direction?(f)
         self.command_x = Integer(x)
         self.command_y = Integer(y)

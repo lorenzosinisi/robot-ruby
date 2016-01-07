@@ -1,5 +1,5 @@
 module Roboruby
-  class Map
+  class Compass
     class << self
 
       # Ddd or remove 90 deg depending on the rotation

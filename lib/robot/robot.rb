@@ -21,18 +21,18 @@ module Roboruby
     end
 
     def move(*)
-      dir = Map.grad_to_direction(direction)
-      new_value = Map.pointing[dir]
+      dir = Compass.grad_to_direction(direction)
+      new_value = Compass.pointing[dir]
       place(current_x + new_value[:x], current_y + new_value[:y])
     end
 
     def right(*)
-      new_direction = Map.rotate[:right]
+      new_direction = Compass.rotate[:right]
       place(current_x, current_y, direction + new_direction)
     end
 
     def left(*)
-      new_direction = Map.rotate[:left]
+      new_direction = Compass.rotate[:left]
       place(current_x, current_y, direction + new_direction)
     end
 
@@ -43,7 +43,7 @@ module Roboruby
     end
 
     def human_direction
-      Map.grad_to_direction(direction).upcase.to_s
+      Compass.grad_to_direction(direction).upcase.to_s
     end
 
   end

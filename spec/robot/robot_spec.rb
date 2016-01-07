@@ -131,7 +131,7 @@ module Roboruby
         x = rand(0..4)
         y = rand(0..4)
         f = rand(0..360)
-        dir = Map.grad_to_direction(f)
+        dir = Compass.grad_to_direction(f)
         robot.place(x, y, f)
         expect(robot.report).to eq [x, y, dir.upcase.to_s]
       end
