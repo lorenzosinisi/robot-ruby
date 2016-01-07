@@ -9,7 +9,8 @@ module Roboruby
 
     def initialize(options={})
       board =  options[:board] || Roboruby::Board.new
-      @robot = options[:robot] || Roboruby::Robot.new({board: board})
+      @compass =  options[:compass] || Compass.new
+      @robot = options[:robot] || Roboruby::Robot.new({board: board, compass: @compass})
       @command_x, @command_y, @command_f = 0, 0, 0
       @name = options[:name] || self.object_id
     end
@@ -30,7 +31,7 @@ module Roboruby
     def extract_arguments!(args)
       args = args.split(",")
       x, y, f = args[0], args[1], args[2]
-      direction = Compass.direction_to_grads(f)
+      direction = @compass.direction_to_grads(f)
       if valid_coords?(x,y) and valid_direction?(f)
         self.command_x = Integer(x)
         self.command_y = Integer(y)

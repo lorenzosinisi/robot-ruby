@@ -8,6 +8,7 @@ module Roboruby
       @board     = options[:board] || Roboruby::Board.new
       @current_x = board.origin
       @current_y = board.origin
+      @compass = options[:compass] || Compass.new
       @direction = 0
     end
 
@@ -21,18 +22,18 @@ module Roboruby
     end
 
     def move(*)
-      dir = Compass.grad_to_direction(direction)
-      new_value = Compass.pointing[dir]
+      dir = @compass.grad_to_direction(direction)
+      new_value = @compass.pointing[dir]
       place(current_x + new_value[:x], current_y + new_value[:y])
     end
 
     def right(*)
-      new_direction = Compass.rotate[:right]
+      new_direction = @compass.rotate[:right]
       place(current_x, current_y, direction + new_direction)
     end
 
     def left(*)
-      new_direction = Compass.rotate[:left]
+      new_direction = @compass.rotate[:left]
       place(current_x, current_y, direction + new_direction)
     end
 
@@ -43,7 +44,7 @@ module Roboruby
     end
 
     def human_direction
-      Compass.grad_to_direction(direction).upcase.to_s
+      @compass.grad_to_direction(direction).upcase.to_s
     end
 
   end
