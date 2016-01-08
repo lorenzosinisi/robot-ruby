@@ -8,9 +8,9 @@ module Roboruby
     VALID_DIRECTIONS = %w(NORTH SOUTH WEST EAST NORTHEAST NORTHWEST SOUTHWEST SOUTHEAST).freeze
 
     def initialize(options={})
-      board =  options[:board] || Roboruby::Board.new
+      @board =  options[:board] || Roboruby::Board.new
       @compass =  options[:compass] || Compass.new
-      @robot = options[:robot] || Roboruby::Robot.new({board: board, compass: @compass})
+      @robot = options[:robot] || Roboruby::Robot.new({board: @board, compass: @compass})
       @command_x, @command_y, @command_f = 0, 0, 0
       @name = options[:name] || self.object_id
     end
