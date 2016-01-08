@@ -1,10 +1,10 @@
 module Roboruby
   class Play
-    # why duplicated actuon
+    # why duplicated action
     # type some commen
     attr_accessor :command, :command_x, :command_y, :command_f
     attr_reader :robot, :name
-    VALID_COMMANDS   = %w(RIGHT LEFT MOVE REPORT PLACE).freeze # refactor this from 2 sources of truth method missing
+
     VALID_DIRECTIONS = %w(NORTH SOUTH WEST EAST NORTHEAST NORTHWEST SOUTHWEST SOUTHEAST).freeze
 
     def initialize(options={})
@@ -16,15 +16,14 @@ module Roboruby
     end
 
     def get_move(cmd)
-      if is_valid_command?(cmd)
-        parse_command!(cmd)
-        robot.send(command, command_x, command_y, command_f)
-      end
+      parse_command!(cmd)
+      robot.send(command, command_x, command_y, command_f)
     end
 
     def parse_command!(cmd)
       command = cmd.split
       args = command[1]
+      @command = command[0].downcase.to_sym
       extract_arguments!(args) if args
     end
 
@@ -33,18 +32,9 @@ module Roboruby
       x, y, f = args[0], args[1], args[2]
       direction = @compass.direction_to_grads(f)
       if valid_coords?(x,y) and valid_direction?(f)
-        self.command_x = Integer(x)
-        self.command_y = Integer(y)
-        self.command_f = direction
-      end
-    end
-
-    def is_valid_command?(args)
-      type = args.split.first
-      if VALID_COMMANDS.include?(type)
-        self.command = type.downcase.to_sym; true
-      else
-         puts "Not a valid command #{type}. Valid commands #{VALID_COMMANDS}"
+        @command_x = Integer(x)
+        @command_y = Integer(y)
+        @command_f = direction
       end
     end
 

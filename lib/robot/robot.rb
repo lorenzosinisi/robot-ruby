@@ -42,10 +42,14 @@ module Roboruby
       puts status
       status
     end
-    
+
     # TODO remove this method from here and move it to Compass
     def human_direction
       compass.grad_to_direction(direction).upcase.to_s
+    end
+
+    def method_missing(meth,*args,&block)
+      "#{self.class} doesn't know how to perform :#{meth}"
     end
 
   end

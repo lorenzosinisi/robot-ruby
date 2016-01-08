@@ -151,5 +151,11 @@ module Roboruby
       end
     end
 
+    describe ".method_missing" do
+      it "should always tell that the robot can't perform the action required" do
+        expect(robot.send("#{srand}_something".to_sym)).to include "doesn't know how to perform"
+      end
+    end
+
   end
 end

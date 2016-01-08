@@ -7,7 +7,7 @@ module Roboruby
     let!(:play) { Play.new({robot: robot}) }
     let!(:board) { Roboruby::Board.new  }
     let!(:valid_commands) { %w(RIGHT LEFT REPORT PLACE) }
-    let!(:not_valid_commands) { %w(pla p 4 cis 55 % 3434 ; .. + * place) }
+    let!(:not_valid_commands) { %w(ciccio probldldjd eskudzbj qwsjdhbqwja sjsaddsajh ashdh hh) }
 
     it "should be a Robot module" do
       expect(Play).to be Roboruby::Play
@@ -61,7 +61,7 @@ module Roboruby
     context "#get_move with valid commands" do
       it "should return false" do
         not_valid_commands.each do |c|
-          expect(play.get_move(c)).to be nil
+          expect(play.get_move(c)).to include "doesn't know how to perform"
         end
       end
     end
@@ -76,7 +76,7 @@ module Roboruby
 
       it "should set the command type to nil if not valid" do
         play.parse_command!('PLACID 2,3,0')
-        expect(play.command).to eq nil
+        expect(play.command).to eq :placid
       end
     end
 
@@ -86,30 +86,6 @@ module Roboruby
         expect(play.command_x).to eq 2
         expect(play.command_y).to eq 3
         expect(play.command_f).to eq 0
-      end
-    end
-
-    context "#is a valid command? with valid commands" do
-
-      it "should return true for 'PLACE x,y,f'" do
-        valid = play.is_valid_command?("PLACE 1,2,NORTH")
-        expect(valid).to be true
-      end
-
-      it "should return true for a valid command" do
-        valid_commands.each do |c|
-          valid = play.is_valid_command?(c)
-          expect(valid).to be true
-        end
-      end
-    end
-
-    context "#is a valid command? with invalid commands" do
-      it "should return false for an invalid command" do
-        not_valid_commands.each do |c|
-          invalid = play.is_valid_command?(c)
-          expect(invalid).to be nil
-        end
       end
     end
 
