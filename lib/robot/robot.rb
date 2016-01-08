@@ -1,7 +1,7 @@
 module Roboruby
   class Robot
 
-    attr_reader :board, :compass # use Board and Compass in Robot memory
+    attr_reader :board, :compass                   # use Board and Compass in Robot memory
     attr_reader :current_x, :current_y, :direction # Store current position in robot memory
 
     def initialize(options={})
@@ -38,18 +38,14 @@ module Roboruby
     end
 
     def report(*)
-      status = [current_x, current_y, human_direction] # TODO use human_direction implemented in Compass instead
-      puts status
+      status = [current_x, current_y, @compass.grad_to_direction(direction).upcase.to_s]
       status
     end
 
-    # TODO remove this method from here and move it to Compass
-    def human_direction
-      compass.grad_to_direction(direction).upcase.to_s
-    end
-
+    # The Robot itself will complain if he doesn't
+    # know how to perform an action (i.e. calling Robot.send(method))
     def method_missing(meth,*args,&block)
-      "#{self.class} doesn't know how to perform :#{meth}"
+      "#{self.class} doesn't know how to perform :#{meth} with #{args} as options"
     end
 
   end

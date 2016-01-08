@@ -28,12 +28,12 @@ module Roboruby
 
       it "converts human_move of 'RIGHT'  to right" do
         play.get_move('RIGHT')
-        expect(play.robot.human_direction).to eq 'EAST'
+        expect(play.robot.report).to eq [0, 0, "EAST"]
       end
 
       it "converts human_move of 'LEFT'  to left" do
         play.get_move('LEFT')
-        expect(play.robot.human_direction).to eq 'WEST'
+        expect(play.robot.report).to eq [0, 0, "WEST"]
       end
 
       it "converts human_move of 'REPORT' to report" do
@@ -42,12 +42,12 @@ module Roboruby
 
       it "converts human_move of 'PLACE X,Y,F' to place(x,y,f)" do
         play.get_move('PLACE 2,3,0')
-        expect(play.robot.human_direction).to eq 'NORTH'
+        expect(play.robot.report).to eq [0, 0, "NORTH"]
       end
 
       it "converts human_move of 'PLACE X,Y,F' to place(x,y,f)" do
         play.get_move('PLACE 2,3,0')
-        expect(play.robot.human_direction).to eq 'NORTH'
+        expect(play.robot.report).to eq [0, 0, "NORTH"]
       end
 
       it "converts MOVE to move" do

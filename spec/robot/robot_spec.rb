@@ -17,7 +17,7 @@ module Roboruby
       end
 
       it "is expected to be itialized with the position 0x0 by default" do
-        expect(robot.human_direction).to eq "NORTH"
+        expect(robot.report).to eq([0, 0, "NORTH"])
       end
 
       it "is expected to be itialized a default board" do
@@ -74,28 +74,28 @@ module Roboruby
     context "#move right" do
       it "should rotate the robot 90 degrees in the specified direction without changing the position" do
         robot.right
-        expect(robot.human_direction).to eq("EAST")
+        expect(robot.report).to eq([0, 0, "EAST"])
       end
     end
     # TODO don't hardcore the output but read it directly from the map
     context "#move left" do
       it "should rotate the robot 90 degrees in the specified direction without changing the position" do
         robot.left
-        expect(robot.human_direction).to eq("WEST")
+        expect(robot.report).to eq([0, 0, "WEST"])
       end
 
       it "should rotate the robot 360 degrees in the specified direction without changing the position" do
         4.times do
           robot.left
         end
-        expect(robot.human_direction).to eq("NORTH")
+        expect(robot.report).to eq([0, 0, "NORTH"])
       end
 
       it "should rotate the robot 360 degrees 100 times" do
         400.times do
           robot.left
         end
-        expect(robot.human_direction).to eq("NORTH")
+        expect(robot.report).to eq([0, 0, "NORTH"])
       end
 
       it "should rotate the robot 360 degrees 100 times and one to the right" do
@@ -103,7 +103,7 @@ module Roboruby
           robot.left
         end
         robot.right
-        expect(robot.human_direction).to eq("EAST")
+        expect(robot.report).to eq([0, 0, "EAST"])
       end
     end
 
