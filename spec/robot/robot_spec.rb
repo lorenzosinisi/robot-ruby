@@ -5,6 +5,7 @@ module Roboruby
 
     let!(:robot) { Roboruby::Robot.new }
     let!(:compass) { Roboruby::Compass.new }
+    
     it "should be a Robot module" do
       expect(Robot).to be Roboruby::Robot
     end
@@ -25,10 +26,10 @@ module Roboruby
       end
 
       it "is expected to be itialized a custom board" do
-        board = Roboruby::Board.new({x: 10, y: 4, origin: 1})
+        board = Roboruby::Board.new({width: 10, height: 4, origin: 1})
         robot = Roboruby::Robot.new({board: board})
-        expect(robot.board.x).to be 10
-        expect(robot.board.y).to be 4
+        expect(robot.board.width).to be 10
+        expect(robot.board.height).to be 4
         expect(robot.board.origin).to be 1
       end
 

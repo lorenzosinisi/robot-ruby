@@ -8,8 +8,8 @@ module Roboruby
         expect(Board).to be Roboruby::Board
       end
       it "have x and y by default" do
-        expect(board.x).to be 4
-        expect(board.y).to be 4
+        expect(board.width).to be 4
+        expect(board.height).to be 4
       end
       it "the origin should be 0 by default" do
         expect(board.origin).to be 0
@@ -18,10 +18,10 @@ module Roboruby
 
     context "#initialize with options" do
       it "should initialize the options" do
-        x, y, origin = rand(0..100), rand(0..100), rand(0..100)
-        board_with_options = Roboruby::Board.new({x: x, y: y, origin: origin })
-        expect(board_with_options.x).to be x
-        expect(board_with_options.y).to be y
+        width, height, origin = rand(0..100), rand(0..100), rand(0..100)
+        board_with_options = Roboruby::Board.new({width: width, height: height, origin: origin })
+        expect(board_with_options.width).to be width
+        expect(board_with_options.height).to be height
         expect(board_with_options.origin).to be origin
       end
     end
