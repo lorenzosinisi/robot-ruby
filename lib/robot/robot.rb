@@ -15,7 +15,7 @@ module Roboruby
     def place(x,y, value = direction)
       if can_i_move?(x,y)
         @current_x, @current_y, @direction = x, y, value # change position
-        report                                           # return report if can_i_move? true
+        report                                           # return #report if can_i_move? true
       end
       # return nil otherwise
     end

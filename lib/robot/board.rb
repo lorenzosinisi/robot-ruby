@@ -10,12 +10,6 @@ module Roboruby
       @height = valid_axis(options[:height]) || size
     end
 
-    # the value x,y is included in the grid if it is a number
-    # between 0 and width or height of the Board
-    def in_grid?(x, y)
-      (x >= 0 and x <= width) and (y >= 0 and y <= height)
-    end
-
     # check that the borad doesn't have negative numbers as size
     def valid_axis(size)
       return nil if size == nil
