@@ -36,7 +36,7 @@ module Roboruby
 
     context "#set cell" do
       it "sets the value of cell based on the (x, y) coordinates" do
-        expect(robot.place(2,2, "right")).to be(true)
+        expect(robot.place(2,2, 0)).to eq([2, 2, "NORTH"])
       end
 
       it "should set the new position of the robot" do
@@ -111,7 +111,7 @@ module Roboruby
 
       it "should return true" do
         robot.place(0,0, 0)
-        expect(robot.move).to eq(true)
+        expect(robot.move).to eq([0, 1, "NORTH"])
       end
 
       it "should move the robot one position further in the direction it is now" do

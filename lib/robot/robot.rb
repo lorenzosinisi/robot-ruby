@@ -17,7 +17,7 @@ module Roboruby
     def place(x,y, value = direction)
       if board.in_grid?(x,y)
         @current_x, @current_y, @direction = x, y, value
-        true
+        report
       end
     end
 
@@ -43,9 +43,9 @@ module Roboruby
     end
 
     # The Robot itself will complain if he doesn't
-    # know how to perform an action (i.e. calling Robot.send(method))
-    def method_missing(meth,*args,&block)
-      "#{self.class} doesn't know how to perform :#{meth} with #{args} as options"
+    # know how to perform an action
+    def method_missing(undefined_meth_yet,*args,&block)
+      "#{self.class} doesn't know how to perform :#{undefined_meth_yet}"
     end
 
   end

@@ -1,7 +1,7 @@
 module Roboruby
   class Play
-    # why duplicated action
-    # type some commen
+
+    # saving command issued by human in order to create a kind of "reverse" method in the future
     attr_accessor :command, :command_x, :command_y, :command_f
     attr_reader :robot, :name
 
@@ -27,6 +27,7 @@ module Roboruby
       extract_arguments!(args) if args
     end
 
+    # TODO define this into the Parser class
     def extract_arguments!(args)
       args = args.split(",")
       x, y, f = args[0], args[1], args[2]
@@ -38,6 +39,7 @@ module Roboruby
       end
     end
 
+    # TODO define this into the Parser class
     def valid_coords?(x,y)
       begin
         Integer(x)
@@ -47,6 +49,7 @@ module Roboruby
       end
     end
 
+    # TODO define this into the Parser class
     def valid_direction?(direction)
       return true if VALID_DIRECTIONS.include?(direction)
       puts "Sorry, are valid directions only: #{VALID_DIRECTIONS}"
