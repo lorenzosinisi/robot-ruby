@@ -13,10 +13,11 @@ module Roboruby
     # Place should be the only method able to
     # assign new values to x,y and f of the robot
     def place(x,y, value = direction)
-      if board.in_grid?(x,y)
-        @current_x, @current_y, @direction = x, y, value
-        report
+      if can_i_move?(x,y)
+        @current_x, @current_y, @direction = x, y, value # change position
+        report                                           # return report if can_i_move? true
       end
+      # return nil otherwise
     end
 
     def move(*)
@@ -38,6 +39,10 @@ module Roboruby
     def report(*)
       status = [current_x, current_y, @compass.grad_to_direction(direction).upcase.to_s]
       status
+    end
+
+    def can_i_move?(x,y)
+      (x >= 0 and x <= board.width) and (y >= 0 and y <= board.height)
     end
 
     # The Robot itself will complain if he doesn't
