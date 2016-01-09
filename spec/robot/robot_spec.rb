@@ -45,7 +45,7 @@ module Roboruby
       end
 
       it "returns nil if trying to use the command place with invalid coords" do
-        expect(robot.place(345345,44, "right")).to be(nil)
+        expect(robot.place(345345,44, "right")).to eq("Attempt to move into an invalid position")
       end
 
     end
@@ -122,7 +122,7 @@ module Roboruby
 
       it "should not move the robot if the movement make it fall from the table" do
         robot.place(0,0, 180)
-        expect(robot.move).to eq(nil)
+        expect(robot.move).to eq("Attempt to move into an invalid position")
       end
     end
 

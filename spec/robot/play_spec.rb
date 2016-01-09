@@ -41,17 +41,12 @@ module Roboruby
       end
 
       it "converts human_move of 'PLACE X,Y,F' to place(x,y,f)" do
-        play.get_move('PLACE 2,3,0')
-        expect(play.robot.report).to eq [0, 0, "NORTH"]
-      end
-
-      it "converts human_move of 'PLACE X,Y,F' to place(x,y,f)" do
-        play.get_move('PLACE 2,3,0')
-        expect(play.robot.report).to eq [0, 0, "NORTH"]
+        play.get_move('PLACE 2,3,NORTH')
+        expect(play.robot.report).to eq [2, 3, "NORTH"]
       end
 
       it "converts MOVE to move" do
-        play.get_move('PLACE 0,0,0')
+        play.get_move('PLACE 0,0,NORTH')
         play.get_move('MOVE')
         expect(play.robot.report).to eq [0, 1, "NORTH"]
         #Output: 0,1,NORTH
@@ -63,29 +58,6 @@ module Roboruby
         not_valid_commands.each do |c|
           expect(play.get_move(c)).to include "doesn't know how to perform"
         end
-      end
-    end
-
-    context "#parse command" do
-      it "should set the command type if valid" do
-        play.parse_command!('PLACE 2,3,NORTH')
-        expect(play.command_x).to eq 2
-        expect(play.command_y).to eq 3
-        expect(play.command_f).to eq 0
-      end
-
-      it "should set the command type to nil if not valid" do
-        play.parse_command!('PLACID 2,3,0')
-        expect(play.command).to eq :placid
-      end
-    end
-
-    context "#extract arguments" do
-      it "should extract the arguments from the command and assign them" do
-        play.extract_arguments!('2,3,NORTH')
-        expect(play.command_x).to eq 2
-        expect(play.command_y).to eq 3
-        expect(play.command_f).to eq 0
       end
     end
 

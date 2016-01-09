@@ -61,8 +61,8 @@ module Roboruby
       it "should reduce to < 360 any grad above 360" do
         expect(subject.to_quadrant(380)).to eq 20
       end
-      it "should return nil when the operation can't be done" do
-        expect(subject.to_quadrant("can't convert a string into deg")).to eq "can't convert a string into deg"
+      it "should return the error when the operation can't be done" do
+        expect(subject.to_quadrant("can't convert a string into deg")).to eq 0
       end
       it "should support also Bignum" do 
         expect(subject.to_quadrant(1000000000000000000000000 * 1000000000000000000000000)).to eq 280

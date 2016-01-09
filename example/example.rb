@@ -9,5 +9,5 @@ puts "\n ==> RIGHT, LEFT, MOVE, REPORT, PLACE \n\n"
 
 loop do
   puts "\n\n\n => Type a new command:"
-  player.get_move(gets.chomp)
+  puts player.get_move(gets.chomp)
 end

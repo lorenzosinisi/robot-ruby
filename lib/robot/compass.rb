@@ -78,7 +78,7 @@ module Roboruby
 
     # Translate the direction into grads
     def direction_to_grads(direction)
-      case direction.downcase.to_sym
+      case direction.to_s.downcase.to_sym
       when :north
         0
       when :northeast
@@ -96,13 +96,13 @@ module Roboruby
       when :northwest
         315
       else
-        0
+        raise "Don't know how to move in direction #{direction.to_s}"
       end
     end
 
     # Translate an Integer into an angle in a 360° quadrant
     def to_quadrant(grads)
-      grads % 360
+      grads.to_i % 360 # conver rotation in grads to an angle IN the compass
     end
 
   end

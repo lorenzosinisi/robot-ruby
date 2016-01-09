@@ -19,9 +19,9 @@ puts "\n ==> RIGHT, LEFT, MOVE, REPORT, PLACE \n\n"
 loop do
 
   puts "It's your time #{first.name}! Select your move:"
-  first.get_move(gets.chomp)
+  puts first.get_move(gets.chomp)
 
   puts "It's your time #{second.name}! Select your move:"
-  second.get_move(gets.chomp)
+  puts second.get_move(gets.chomp)
 
 end
