@@ -5,11 +5,9 @@ module Roboruby
     attr_reader :current_x, :current_y, :direction # Store current position in robot memory
 
     def initialize(options={})
-      @board     = options[:board] || Roboruby::Board.new
-      @current_x = board.origin
-      @current_y = board.origin
+      @board   = options[:board]   || Roboruby::Board.new
       @compass = options[:compass] || Compass.new
-      @direction = 0
+      @current_x, @current_y, @direction = 0, 0, 0 # direction 0 means north
     end
 
     # Place should be the only method able to

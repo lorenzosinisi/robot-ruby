@@ -30,7 +30,6 @@ module Roboruby
         robot = Roboruby::Robot.new({board: board})
         expect(robot.board.width).to be 10
         expect(robot.board.height).to be 4
-        expect(robot.board.origin).to be 1
       end
 
     end

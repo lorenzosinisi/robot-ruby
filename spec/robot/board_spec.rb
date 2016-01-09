@@ -11,9 +11,6 @@ module Roboruby
         expect(board.width).to be 4
         expect(board.height).to be 4
       end
-      it "the origin should be 0 by default" do
-        expect(board.origin).to be 0
-      end
     end
 
     context "#initialize with options" do
@@ -22,7 +19,6 @@ module Roboruby
         board_with_options = Roboruby::Board.new({width: width, height: height, origin: origin })
         expect(board_with_options.width).to be width
         expect(board_with_options.height).to be height
-        expect(board_with_options.origin).to be origin
       end
     end
 
