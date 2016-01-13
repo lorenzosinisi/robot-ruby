@@ -43,7 +43,7 @@ module Roboruby
 
     # print x,y, direction
     def report(*)
-      [current_x, current_y, compass.grad_to_direction(direction).upcase.to_s]
+      [current_x, current_y, compass.grad_to_direction(direction).to_s.upcase]
     end
 
     # exit from the console session

@@ -51,7 +51,7 @@ module Roboruby
     end
 
     # Translate the coors into a human direction
-    def grad_to_direction(grads)
+    def grad_to_direction(grads)      
       angle = to_quadrant(grads)
       if angle == 0
         :north
