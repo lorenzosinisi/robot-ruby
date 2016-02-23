@@ -24,20 +24,23 @@ module Roboruby
 
     # move a step into the current direction
     def move(*)
-      dir = compass.grad_to_direction(direction)
-      new_value = compass.pointing[dir]
+      dir       = compass.grad_to_direction(direction)
+      new_value = compass.direction[dir.to_sym]
+
       place(current_x + new_value[:x], current_y + new_value[:y])
     end
 
     # rotate right
     def right(*)
       new_direction = compass.rotate :right
+
       place(current_x, current_y, direction + new_direction)
     end
 
     # rotate left
     def left(*)
       new_direction = compass.rotate :left
+
       place(current_x, current_y, direction + new_direction)
     end
 
@@ -46,14 +49,14 @@ module Roboruby
       [current_x, current_y, compass.grad_to_direction(direction).to_s.upcase]
     end
 
-    # exit from the console session
     def quit(*)
-      exit!
+      exit! # so you can close the game
     end
 
     # return true if the attemped new x,y is in the array of valid coordinates
-    def can_i_move?(x,y)
-      (x.to_i >= 0 and x.to_i <= board.width) and (y.to_i >= 0 and y.to_i <= board.height)
+    def can_i_move?(x, y)
+      x, y = x.to_i, y.to_i
+      ( x >= 0 && x <= board.width  ) && ( y >= 0 && y <= board.height )
     end
 
     # The Robot itself will complain if he doesn't
