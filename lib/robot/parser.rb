@@ -1,10 +1,6 @@
 module Roboruby
   class Parser
 
-    def initialize
-      @compass = Compass.new
-    end
-
     def parse(cmd)
       @to_execute = []
       cmd = cmd.split
@@ -18,11 +14,10 @@ module Roboruby
 
     def extract_arguments!(args)
       args = args.split(",")
-      x, y, f = args[0], args[1], args[2]
-      direction = @compass.direction_to_grads(f)
-      @to_execute.push(x.to_i)
-      @to_execute.push(y.to_i)
-      @to_execute.push(direction.to_i)
+      x, y, f = args[0].to_i, args[1].to_i, args[2]
+      direction = Compass.new.direction_to_grads(f)
+      
+      @to_execute.push(x, y, direction)
     end
 
   end
