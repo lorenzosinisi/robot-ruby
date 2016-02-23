@@ -46,12 +46,13 @@ module Roboruby
 
       context "right/left" do
         it "move left/right when poiting in one direction" do
-          expect(subject.rotate[:left]).to eq(-90)
-          expect(subject.rotate[:right]).to eq(90)
+          expect(subject.rotate(:left)).to eq(-90)
+          expect(subject.rotate(:right)).to eq(90)
         end
         context "if trying to modify the hash" do
           it "should raise error" do
-            expect{subject.rotate[:polos_lollipop] = "polos_lollipop"}.to raise_error(RuntimeError, "can't modify frozen Hash")
+            expect{ subject.rotate(:polos_lollipop) }.to raise_error RuntimeError,
+            "direction polos_lollipop not implemented yet, define it in /Applications/MAMP/htdocs/personal/au/robot/lib/robot/compass.rb"
           end
         end
       end

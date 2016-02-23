@@ -31,13 +31,13 @@ module Roboruby
 
     # rotate right
     def right(*)
-      new_direction = compass.rotate[:right]
+      new_direction = compass.rotate :right
       place(current_x, current_y, direction + new_direction)
     end
 
     # rotate left
     def left(*)
-      new_direction = compass.rotate[:left]
+      new_direction = compass.rotate :left
       place(current_x, current_y, direction + new_direction)
     end
 

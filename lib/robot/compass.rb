@@ -1,12 +1,19 @@
 module Roboruby
   class Compass
 
-    # Ddd or remove 90 deg depending on the rotation
-    def rotate
-      {
-        :right => +90,
-        :left => -90,
-      }.freeze
+    # Add or remove 90 deg depending on the rotation
+    def rotate(direction)
+      send direction
+    end
+
+    # DIRECTIONS
+    # List of defined directions
+    def left
+      -90
+    end
+
+    def right
+      +90
     end
 
     # Depending on the position that the robot is facing, add or remove a value from x and y
@@ -103,6 +110,12 @@ module Roboruby
     # Translate an Integer into an angle in a 360° quadrant
     def to_quadrant(grads)
       grads.to_i % 360 # conver rotation in grads to an angle IN the compass
+    end
+
+    # The Compass will complain if he doesn't
+    # know a direction
+    def method_missing(undefined_meth_yet,*args,&block)
+      raise "direction #{undefined_meth_yet} not implemented yet, define it in #{__FILE__}"
     end
 
   end
