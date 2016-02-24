@@ -11,6 +11,7 @@ module Roboruby
 
     # Place should be the only method able to
     # assign new values to x,y and f of the robot
+    # every other method defined in Robot will need to call place to change the position
     def place(x,y, value = direction)
       if can_i_move?(x,y)
         @current_x = x
