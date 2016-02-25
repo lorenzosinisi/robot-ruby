@@ -19,6 +19,9 @@ module Roboruby
     # should not be able to call any other method except from those defined in the Class
     def get_move(cmd)
       @command, @command_x, @command_y, @command_f = parser.parse(cmd)
+      # here we should check that the method that we are sending to the object is actually defined as
+      # an allowed action. Methods of the object or his ancestors should not be accessible
+      # use something as robot.custom_send(args) instead
       robot.send(@command, @command_x.to_i, @command_y.to_i, @command_f.to_i) # dangerous code
     end
 
