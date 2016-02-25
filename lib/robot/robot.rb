@@ -24,7 +24,7 @@ module Roboruby
     end
 
     # move a step into the current direction
-    def move(*)
+    def move(*_)
       dir       = compass.grad_to_direction(direction)
       new_value = compass.direction[dir.to_sym]
 
@@ -32,25 +32,25 @@ module Roboruby
     end
 
     # rotate right
-    def right(*)
+    def right(*_)
       new_direction = compass.rotate :right
 
       place(current_x, current_y, direction + new_direction)
     end
 
     # rotate left
-    def left(*)
+    def left(*_)
       new_direction = compass.rotate :left
-
+      
       place(current_x, current_y, direction + new_direction)
     end
 
     # print x,y, direction
-    def report(*)
+    def report(*_)
       [current_x, current_y, compass.grad_to_direction(direction).to_s.upcase]
     end
 
-    def quit(*)
+    def quit(*_)
       exit! # so you can close the game
     end
 

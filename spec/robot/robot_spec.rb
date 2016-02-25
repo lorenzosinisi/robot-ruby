@@ -145,15 +145,18 @@ module Roboruby
       end
 
       it "should not be possibile to be outside of the grid, ignore the movement" do
-        robot.place(rand(5..990),rand(5..990), %i(NORTH SOUTH EAST WEST).sample)
-        is_still_inside = robot.can_i_move?(robot.current_x, robot.current_y)
-        expect(is_still_inside).to eq(true)
+        board_size = Board.new.size
+        robot.place rand((board_size + 1)..(board_size + 900)), # random bigger X
+                    rand((board_size + 1)..(board_size + 900)), # random bigger Y
+                    %i(NORTH SOUTH EAST WEST).sample            # random correct direction
+
+        expect([robot.current_x, robot.current_y]).to eq([0,0])
       end
     end
 
     describe ".method_missing" do
       it "should always tell that the robot can't perform the action required" do
-        expect(robot.send("#{srand}_something".to_sym)).to include "doesn't know how to perform"
+        expect( robot.send("robot_action_#{srand}".to_sym) ).to include "doesn't know how to perform"
       end
     end
 

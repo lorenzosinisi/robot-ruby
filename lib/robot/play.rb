@@ -12,11 +12,14 @@ module Roboruby
       @parser =  Parser.new
       @name   =  options[:name] || object_id
       @command, @command_x, @command_y, @command_f = :report, 0, 0, 0
+      @allowed_actions = robot.methods(false)
     end
 
+    # TODO check that the @command is actually one of the defined instance method of Robot
+    # should not be able to call any other method except from those defined in the Class
     def get_move(cmd)
       @command, @command_x, @command_y, @command_f = parser.parse(cmd)
-      robot.send(@command, @command_x.to_i, @command_y.to_i, @command_f.to_i)
+      robot.send(@command, @command_x.to_i, @command_y.to_i, @command_f.to_i) # dangerous code
     end
 
   end
